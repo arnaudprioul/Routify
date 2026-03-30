@@ -6,6 +6,9 @@
   "permissions": [
     "core:default",
     "shell:allow-open",
-    "notification:default"
+    "notification:default",
+    "notification:allow-register-action-types",
+    "notification:allow-on-action",
+    "notification:allow-cancel"
   ]
 }
