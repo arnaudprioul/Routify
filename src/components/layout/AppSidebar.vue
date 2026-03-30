@@ -35,6 +35,19 @@
 
     <!-- Bottom -->
     <div class="sidebar-footer">
+      <button
+        class="btn-deep-focus"
+        :class="{ active: ui.deepFocus }"
+        :aria-label="t('sidebar.deepFocus')"
+        @click="ui.toggleDeepFocus()"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        {{ t('sidebar.deepFocus') }}
+      </button>
       <LangSwitcher variant="sidebar" />
       <div class="footer-divider" />
       <div class="streak-row">
@@ -51,12 +64,14 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoutineStore } from '@/stores/routines.store';
 import { useOnboardingStore } from '@/stores/onboarding.store';
+import { useUiStore } from '@/stores/ui.store';
 import ProgressRing from '@/components/ui/ProgressRing.vue';
 import LangSwitcher from '@/components/ui/LangSwitcher.vue';
 
 const { t } = useI18n();
 const store = useRoutineStore();
 const onboarding = useOnboardingStore();
+const ui = useUiStore();
 
 const userName = computed(() => onboarding.state.userName);
 const totalCompleted = computed(() => store.totalCompleted);
@@ -255,6 +270,28 @@ const navItems = computed(() => [
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
+}
+
+.btn-deep-focus {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+.btn-deep-focus:hover {
+  background: var(--bg-overlay);
+  color: var(--text-secondary);
+}
+
+.btn-deep-focus.active {
+  background: var(--accent-glow);
+  color: var(--accent);
 }
 
 .footer-divider {

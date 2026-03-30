@@ -12,7 +12,8 @@
     },
     "streak": {
       "label": "jours de série"
-    }
+    },
+    "deepFocus": "Focus profond"
   },
   "today": {
     "greeting": {
@@ -65,7 +66,9 @@
         "reminder": "Rappel"
       },
       "cancel": "Annuler",
-      "create": "Créer"
+      "create": "Créer",
+      "editTitle": "Modifier la routine",
+      "save": "Enregistrer"
     },
     "deleteConfirm": "Supprimer cette routine ?"
   },
@@ -284,6 +287,10 @@
     "subtitle": "Ajoutez des habitudes à votre routine",
     "close": "Fermer",
     "add": "Ajouter",
+    "searchPlaceholder": "Rechercher ou créer une tâche personnalisée…",
+    "create": "Créer",
+    "suggestions": "Suggestions",
+    "noResults": "Aucune habitude trouvée. Appuyez sur ↵ pour ajouter votre tâche.",
     "categories": {
       "health": "Santé",
       "mindfulness": "Pleine conscience",
@@ -297,6 +304,62 @@
     "expand": "Développer",
     "collapse": "Réduire",
     "complete": "Terminé !",
-    "addHabit": "Ajouter une habitude"
+    "addHabit": "Ajouter une habitude",
+    "start": "Démarrer",
+    "edit": "Modifier la routine",
+    "delete": "Supprimer la routine",
+    "editItem": "Modifier l'élément",
+    "deleteItem": "Supprimer l'élément",
+    "dragHandle": "Glisser pour réordonner"
+  },
+  "focus": {
+    "exit": "Quitter le focus",
+    "skip": "Passer",
+    "pause": "Pause",
+    "resume": "Reprendre",
+    "done": "Terminé",
+    "min": "min",
+    "timer": {
+      "countdown": "Compte à rebours",
+      "stopwatch": "Chronomètre"
+    },
+    "complete": {
+      "title": "Routine terminée !",
+      "cta": "Retour à Aujourd'hui"
+    },
+    "notFound": "Routine introuvable.",
+    "backToToday": "Retour à Aujourd'hui"
+  },
+  "aiSuggest": {
+    "button": "Suggestion IA",
+    "title": "Suggestions de routines par IA",
+    "subtitle": "Laissez l'IA créer des routines personnalisées selon votre profil",
+    "close": "Fermer",
+    "apiKeySetup": {
+      "desc": "Entrez votre clé API Gemini gratuite pour activer les suggestions IA. Votre clé est stockée localement et n'est jamais transmise en dehors de Google.",
+      "label": "Clé API Gemini",
+      "placeholder": "AIza...",
+      "save": "Enregistrer et continuer",
+      "change": "Changer la clé API",
+      "hint": "Obtenez votre clé gratuite sur aistudio.google.com"
+    },
+    "context": {
+      "interests": "Contexte supplémentaire",
+      "interestsPlaceholder": "ex. Je travaille depuis chez moi, je veux améliorer ma concentration, j'aime le yoga le matin..."
+    },
+    "generate": "Générer des routines",
+    "regenerate": "Régénérer",
+    "loading": "Création de vos routines en cours…",
+    "results": {
+      "add": "Ajouter",
+      "added": "Ajouté ✓",
+      "dismiss": "Ignorer",
+      "steps": "étapes"
+    },
+    "scheduleTypes": {
+      "morning_person": "Lève-tôt",
+      "balanced": "Équilibré",
+      "night_owl": "Couche-tard"
+    }
   }
 }

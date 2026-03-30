@@ -1,151 +1,104 @@
 # Routify
 
-A macOS routine management app — daily, weekly, and monthly habits with a premium dark UI.
+Stop managing your habits in a notes app.
 
-Built with **Tauri 2 + Vue 3 + TypeScript + Pinia**.
+Build and track your daily routines in a focused, distraction-free macOS app — with time blocks, streaks, AI suggestions, and native notifications.
 
----
-
-## Prerequisites
-
-| Tool | Version | Install |
-|------|---------|---------|
-| Node.js | ≥ 18 | [nodejs.org](https://nodejs.org) or `nvm` |
-| Rust + Cargo | ≥ 1.77 | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` |
-| Xcode CLI tools | latest | `xcode-select --install` |
-
-After installing Rust, reload your shell:
-```bash
-source "$HOME/.cargo/env"
-rustc --version   # should print rustc 1.xx.x
-```
+Built with **Tauri 2 + Vue 3 + TypeScript**.
 
 ---
 
-## Setup
+## 🚨 The Problem
+
+Building consistent habits is hard when your tools work against you:
+
+- Habit apps are either too simple or too bloated
+- No structure for *when* to do things during the day
+- No way to build your own routines step by step
+- Constant context-switching between apps
+
+## 💥 The Solution
+
+Routify gives you:
+
+- A **time-blocked daily view** — Morning, Afternoon, Evening, Anytime
+- **Custom routines** with ordered, checkable steps
+- **Streaks** that reward consistency
+- **AI-generated suggestions** based on your goals
+- **Native macOS notifications** so you never miss a routine
+
+No account. No subscription. No cloud. Everything stays on your machine.
+
+---
+
+## ⚡ Quick Start
+
+**Prerequisites:** Node.js ≥ 18, Rust ≥ 1.77 (for native build)
 
 ```bash
-# Install JS dependencies
 npm install
-```
 
----
-
-## Development
-
-### Frontend only (browser, no Rust needed)
-```bash
+# Frontend only (no Rust needed)
 npm run dev
 # → http://localhost:1420
-```
 
-### Native macOS app (requires Rust)
-```bash
+# Native macOS app
 npm run tauri dev
 ```
 
 ---
 
-## Build
+## 🎯 Features
 
-```bash
-# Production web bundle
-npm run build
+### 📅 Today View
+See only what matters today. Routines are grouped by time block and filtered by day of the week. A progress bar tracks how much of your day is done.
 
-# macOS .app bundle (requires Rust)
-npm run tauri build
-```
+### 🗂 Routine Management
+Create routines with a name, icon, color, time block, and specific days. Each routine contains an ordered list of steps. Reorder steps by dragging, edit or delete them inline.
 
-Output: `src-tauri/target/release/bundle/macos/Routify.app`
+### ✦ Habit Library
+Add habits to any routine from a curated library (health, mindfulness, productivity, fitness, sleep, beauty). Search across all categories, or type anything to create a fully custom step — no library entry needed.
 
----
+### 🤖 AI Suggestions (Gemini)
+Let AI generate 3 personalized routines based on your onboarding goals and anything you describe — your job, your schedule, your interests. Uses the free Gemini API. Your key stays local.
 
-## Project Structure
+### 📦 Templates
+8 curated starter packs to hit the ground running: Morning Power, Glow Up Skincare, Athlete Mode, Deep Work, Evening Wind Down, Clean Space, Entrepreneur Pack, Mindfulness.
 
-```
-routify/
-├── src/
-│   ├── main.ts                     # App entry point
-│   ├── App.vue                     # Root layout + page transitions
-│   ├── assets/
-│   │   ├── css/global.css          # Design tokens, reset, animations
-│   │   └── scss/                   # SCSS files (future)
-│   ├── routes/
-│   │   └── index.route.ts          # Vue Router (hash history)
-│   ├── stores/
-│   │   └── routines.store.ts       # Pinia store — routines, streaks, localStorage
-│   ├── pages/
-│   │   ├── today.vue               # Dashboard — today's routines
-│   │   ├── routines.vue            # Manage all routines + create new
-│   │   ├── templates.vue           # 8 curated template packs
-│   │   └── stats.vue               # Streaks + 63-day heatmap
-│   └── components/
-│       ├── layout/
-│       │   └── AppSidebar.vue      # Fixed sidebar, progress ring, nav
-│       ├── routines/
-│       │   └── RoutineCard.vue     # Expandable card with checklist
-│       └── ui/
-│           └── ProgressRing.vue    # SVG circular progress indicator
-├── src-tauri/
-│   ├── tauri.conf.json             # App config (name, window size, bundle)
-│   ├── Cargo.toml                  # Rust dependencies
-│   ├── build.rs
-│   └── src/
-│       ├── main.rs
-│       └── lib.rs                  # Tauri builder entry
-├── public/
-│   └── fonts/                      # JetBrains Sans + Mono (woff2)
-├── vite.config.ts
-└── tsconfig.json
-```
+### 📊 Stats
+Track your best streak, total completions, and a 63-day activity heatmap per routine. Spot patterns and gaps at a glance.
+
+### 🔔 Native Notifications
+Set a reminder time on any routine. Routify sends a native macOS notification when it's time — only if the routine isn't already completed.
+
+### 🌬 Breathing Exercise
+A built-in 4-7-8 breathing guide to reset between routines. Counts cycles, shows animated phases (Inhale / Hold / Exhale).
+
+### 🌍 Multilingual
+Available in English and French. Locale is saved locally and can be switched at any time from settings or the onboarding screen.
 
 ---
 
-## Data
+## 🧠 How It Works
 
-All data is stored locally via **localStorage** — no server, no account needed.
+Routify runs entirely offline. All data is stored in `localStorage` — no server, no account, no sync required.
 
-Key: `routify_routines` — JSON array of routines with items, streaks, and completion dates.
-
-To reset: open DevTools → Application → Local Storage → delete `routify_routines`.
+On first launch, a 4-step onboarding wizard collects your name, goals, and schedule type to personalise suggestions and time block ordering.
 
 ---
 
-## Design System
+## 🎨 Design
 
-Tokens are defined in `src/styles/global.css`.
-
-| Token | Value | Use |
-|-------|-------|-----|
-| `--bg-deep` | `#07070a` | App background |
-| `--bg-elevated` | `#17171c` | Cards, panels |
-| `--accent` | `#14b8a6` | Teal — active states, progress, CTAs |
-| `--accent-orange` | `#ea580c` | Streaks, energy indicators |
-| `--border` | `rgba(255,255,255,0.08)` | All borders |
-| `--ease-out` | `cubic-bezier(0.16,1,0.3,1)` | All transitions |
-
-Fonts: **JetBrains Sans** (UI text) + **JetBrains Mono** (numbers, metrics) — served from `/public/fonts/`.
+Dark, minimal macOS-native aesthetic. Teal accent (`#14b8a6`), deep background (`#07070a`), JetBrains Sans + Mono typography. Every interaction has a CSS transition — no JS animation libraries.
 
 ---
 
-## Roadmap
+## 📘 Documentation
 
-### Version 1 (current)
-- [x] Daily / Weekly / Monthly routines
-- [x] Expandable checklists with completion tracking
-- [x] Streak counter per routine
-- [x] 8 curated templates (Morning, Skincare, Workout, Deep Work, Evening, Cleaning, Entrepreneur, Mindfulness)
-- [x] Stats view with streak board + activity heatmap
-- [x] LocalStorage persistence
-- [x] Tauri native shell config
+See [DOCUMENTATION.md](./DOCUMENTATION.md) for full technical details — data model, architecture, store API, design tokens, and more.
 
-### Version 2
-- [ ] Pomodoro / per-step timer
-- [ ] macOS local notifications (reminders)
-- [ ] "You haven't done your workout this week" nudges
-- [ ] Guided mode — step-by-step walkthrough
+---
 
-### Version 3
-- [ ] AI routine generation ("Create a morning routine for a founder")
-- [ ] Dynamic routines (adapt to weather, fatigue, history)
-- [ ] iCloud sync
+## 📄 License
+
+MIT

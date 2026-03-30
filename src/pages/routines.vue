@@ -5,12 +5,20 @@
         <h1 class="view-title">{{ t('routines.title') }}</h1>
         <p class="view-subtitle">{{ t('routines.subtitle', store.routines.length) }}</p>
       </div>
-      <button class="btn-primary" @click="showModal = true">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-        </svg>
-        {{ t('routines.new') }}
-      </button>
+      <div class="header-actions">
+        <button class="btn-ai" @click="showAiModal = true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          {{ t('aiSuggest.button') }}
+        </button>
+        <button class="btn-primary" @click="showModal = true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          {{ t('routines.new') }}
+        </button>
+      </div>
     </div>
 
     <div class="filter-tabs">
@@ -38,14 +46,18 @@
         class="routine-row"
         :style="{ animationDelay: `${i * 40}ms` }"
       >
-        <RoutineCard :routine="routine" @add-habit="openHabitLibrary" />
-        <button class="btn-delete" @click="confirmDelete(routine.id)" :aria-label="t('routines.deleteConfirm')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
-          </svg>
-        </button>
+        <RoutineCard
+          :routine="routine"
+          @add-habit="openHabitLibrary"
+          @edit="openEditModal"
+          @delete="confirmDelete"
+          @start="startRoutine"
+        />
       </div>
     </div>
+
+    <!-- AI Suggest modal -->
+    <AiSuggestModal v-if="showAiModal" @close="showAiModal = false" />
 
     <!-- Habit Library modal -->
     <HabitLibrary
@@ -54,6 +66,67 @@
       @close="habitLibraryRoutineId = null"
     />
 
+    <!-- Edit Routine modal -->
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-if="editingRoutineId" class="modal-backdrop" @click.self="editingRoutineId = null">
+          <div class="modal">
+            <h2 class="modal-title">{{ t('routines.modal.editTitle') }}</h2>
+            <form @submit.prevent="saveEdit" class="modal-form">
+              <div class="field">
+                <label>{{ t('routines.modal.fields.name') }}</label>
+                <input v-model="editForm.name" type="text" :placeholder="t('routines.modal.fields.namePlaceholder')" required />
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>{{ t('routines.modal.fields.icon') }}</label>
+                  <input v-model="editForm.icon" type="text" placeholder="✦" maxlength="2" />
+                </div>
+                <div class="field">
+                  <label>{{ t('routines.modal.fields.color') }}</label>
+                  <input v-model="editForm.color" type="color" />
+                </div>
+                <div class="field">
+                  <label>{{ t('routines.modal.fields.timeBlock') }}</label>
+                  <select v-model="editForm.timeBlock">
+                    <option value="morning">{{ t('timeBlock.morning') }}</option>
+                    <option value="afternoon">{{ t('timeBlock.afternoon') }}</option>
+                    <option value="evening">{{ t('timeBlock.evening') }}</option>
+                    <option value="anytime">{{ t('timeBlock.anytime') }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ t('routines.modal.fields.days') }}</label>
+                <p class="field-hint">{{ t('routines.modal.fields.daysHint') }}</p>
+                <div class="days-row">
+                  <button
+                    v-for="day in DAY_KEYS"
+                    :key="day"
+                    type="button"
+                    class="day-btn"
+                    :class="{ active: editForm.days.includes(day) }"
+                    @click="toggleEditDay(day)"
+                  >
+                    {{ t(`days.${day}`) }}
+                  </button>
+                </div>
+              </div>
+              <div class="field">
+                <label>{{ t('routines.modal.fields.reminder') }}</label>
+                <input v-model="editForm.reminderTime" type="time" class="input-time" />
+              </div>
+              <div class="modal-actions">
+                <button type="button" class="btn-ghost" @click="editingRoutineId = null">{{ t('routines.modal.cancel') }}</button>
+                <button type="submit" class="btn-primary">{{ t('routines.modal.save') }}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- New Routine modal -->
     <Teleport to="body">
       <Transition name="modal">
         <div v-if="showModal" class="modal-backdrop" @click.self="showModal = false">
@@ -114,14 +187,28 @@
 <script setup lang="ts">
 import { ref, computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { useRoutineStore } from '@/stores/routines.store';
-import type { TTimeBlock, TDayOfWeek } from '@/stores/routines.store';
+import type { TTimeBlock, TDayOfWeek, IRoutine } from '@/stores/routines.store';
 import RoutineCard from '@/components/routines/RoutineCard.vue';
 import HabitLibrary from '@/components/ui/HabitLibrary.vue';
+import AiSuggestModal from '@/components/ui/AiSuggestModal.vue';
 
 const { t } = useI18n();
+const router = useRouter();
 const store = useRoutineStore();
 const showModal = ref(false);
+const showAiModal = ref(false);
+const editingRoutineId = ref<string | null>(null);
+
+const editForm = reactive({
+  name: '',
+  icon: '✦',
+  color: '#14b8a6',
+  timeBlock: 'morning' as TTimeBlock,
+  days: [] as TDayOfWeek[],
+  reminderTime: '' as string | undefined,
+});
 const activeTab = ref<'all' | TTimeBlock>('all');
 const habitLibraryRoutineId = ref<string | null>(null);
 
@@ -179,8 +266,43 @@ function confirmDelete(id: string) {
   }
 }
 
+function openEditModal(routineId: string) {
+  const routine = store.routines.find((r: IRoutine) => r.id === routineId);
+  if (!routine) return;
+  editForm.name = routine.name;
+  editForm.icon = routine.icon;
+  editForm.color = routine.color;
+  editForm.timeBlock = routine.timeBlock;
+  editForm.days = [...routine.days];
+  editForm.reminderTime = routine.reminderTime ?? '';
+  editingRoutineId.value = routineId;
+}
+
+function toggleEditDay(day: TDayOfWeek) {
+  const idx = editForm.days.indexOf(day);
+  if (idx === -1) editForm.days.push(day);
+  else editForm.days.splice(idx, 1);
+}
+
+function saveEdit() {
+  if (!editingRoutineId.value || !editForm.name.trim()) return;
+  store.updateRoutine(editingRoutineId.value, {
+    name: editForm.name,
+    icon: editForm.icon || '✦',
+    color: editForm.color,
+    timeBlock: editForm.timeBlock,
+    days: [...editForm.days],
+    reminderTime: editForm.reminderTime || undefined,
+  });
+  editingRoutineId.value = null;
+}
+
 function openHabitLibrary(routineId: string) {
   habitLibraryRoutineId.value = routineId;
+}
+
+function startRoutine(routineId: string) {
+  router.push(`/focus/${routineId}`);
 }
 </script>
 
@@ -199,6 +321,28 @@ function openHabitLibrary(routineId: string) {
   align-items: flex-end;
   justify-content: space-between;
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.btn-ai {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: background var(--duration-fast), opacity var(--duration-fast);
+}
+
+.btn-ai:hover { background: var(--accent-glow); }
 
 .view-title {
   font-size: var(--text-2xl);
@@ -257,30 +401,7 @@ function openHabitLibrary(routineId: string) {
 }
 
 .routine-row {
-  position: relative;
   animation: fade-in var(--duration-base) var(--ease-out) both;
-}
-
-.btn-delete {
-  position: absolute;
-  top: var(--sp-4);
-  right: var(--sp-4);
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  border-radius: var(--radius-sm);
-  opacity: 0;
-  transition: opacity var(--duration-fast), color var(--duration-fast), background var(--duration-fast);
-}
-
-.routine-row:hover .btn-delete { opacity: 1; }
-
-.btn-delete:hover {
-  color: var(--danger);
-  background: rgba(239, 68, 68, 0.1);
 }
 
 .empty-state {
@@ -441,6 +562,23 @@ input[type="color"] {
 }
 
 select { appearance: none; cursor: pointer; }
+
+.input-time {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-2) var(--sp-3);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-sm);
+  transition: border-color var(--duration-fast);
+  color-scheme: dark;
+}
+
+.input-time:focus {
+  border-color: var(--accent);
+  outline: none;
+}
 
 .modal-actions {
   display: flex;

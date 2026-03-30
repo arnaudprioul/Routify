@@ -1,6 +1,6 @@
 <template>
-  <div class="app-shell" :class="{ fullscreen: isFullscreen }">
-    <AppSidebar v-if="!isFullscreen" />
+  <div class="app-shell" :class="{ fullscreen: isFullscreen, 'deep-focus': ui.deepFocus }">
+    <AppSidebar v-if="!isFullscreen && !ui.deepFocus" />
     <main class="app-main">
       <RouterView v-slot="{ Component }">
         <Transition name="page" mode="out-in">
@@ -12,12 +12,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
 import AppSidebar from '@/components/layout/AppSidebar.vue';
+import { useNotifications } from '@/composables/useNotifications';
+import { useUiStore } from '@/stores/ui.store';
 
 const route = useRoute();
+const ui = useUiStore();
 const isFullscreen = computed(() => !!route.meta.fullscreen);
+
+useNotifications();
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && ui.deepFocus) {
+    ui.exitDeepFocus();
+  }
+}
+
+onMounted(() => window.addEventListener('keydown', onKeydown));
+onUnmounted(() => window.removeEventListener('keydown', onKeydown));
 </script>
 
 <style scoped>
@@ -27,10 +41,16 @@ const isFullscreen = computed(() => !!route.meta.fullscreen);
   height: 100%;
   background: var(--bg-deep);
   overflow: hidden;
+  transition: background var(--duration-slow) var(--ease-out);
 }
 
-.app-shell.fullscreen .app-main {
-  background: var(--bg-deep);
+.app-shell.fullscreen .app-main,
+.app-shell.deep-focus .app-main {
+  background: #050508;
+}
+
+.app-shell.deep-focus {
+  background: #050508;
 }
 
 .app-main {
@@ -39,6 +59,7 @@ const isFullscreen = computed(() => !!route.meta.fullscreen);
   overflow-x: hidden;
   background: var(--bg-base);
   position: relative;
+  transition: background var(--duration-slow) var(--ease-out);
 }
 
 /* Page transitions */

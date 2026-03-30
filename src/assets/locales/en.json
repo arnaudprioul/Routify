@@ -12,7 +12,8 @@
     },
     "streak": {
       "label": "day streak"
-    }
+    },
+    "deepFocus": "Deep Focus"
   },
   "today": {
     "greeting": {
@@ -65,7 +66,9 @@
         "reminder": "Reminder"
       },
       "cancel": "Cancel",
-      "create": "Create"
+      "create": "Create",
+      "editTitle": "Edit Routine",
+      "save": "Save"
     },
     "deleteConfirm": "Delete this routine?"
   },
@@ -284,6 +287,10 @@
     "subtitle": "Add habits to your routine",
     "close": "Close",
     "add": "Add",
+    "searchPlaceholder": "Search or create a custom task…",
+    "create": "Create",
+    "suggestions": "Suggestions",
+    "noResults": "No matching habits. Press ↵ to add your custom task.",
     "categories": {
       "health": "Health",
       "mindfulness": "Mindfulness",
@@ -297,6 +304,62 @@
     "expand": "Expand",
     "collapse": "Collapse",
     "complete": "Complete!",
-    "addHabit": "Add habit"
+    "addHabit": "Add habit",
+    "start": "Start",
+    "edit": "Edit routine",
+    "delete": "Delete routine",
+    "editItem": "Edit item",
+    "deleteItem": "Delete item",
+    "dragHandle": "Drag to reorder"
+  },
+  "focus": {
+    "exit": "Exit focus",
+    "skip": "Skip",
+    "pause": "Pause",
+    "resume": "Resume",
+    "done": "Done",
+    "min": "min",
+    "timer": {
+      "countdown": "Countdown",
+      "stopwatch": "Stopwatch"
+    },
+    "complete": {
+      "title": "Routine Complete!",
+      "cta": "Back to Today"
+    },
+    "notFound": "Routine not found.",
+    "backToToday": "Back to Today"
+  },
+  "aiSuggest": {
+    "button": "AI Suggest",
+    "title": "AI Routine Suggestions",
+    "subtitle": "Let AI craft personalized routines based on your profile",
+    "close": "Close",
+    "apiKeySetup": {
+      "desc": "Enter your free Gemini API key to enable AI-powered suggestions. Your key is stored locally and never sent anywhere except Google.",
+      "label": "Gemini API Key",
+      "placeholder": "AIza...",
+      "save": "Save & Continue",
+      "change": "Change API key",
+      "hint": "Get your free key at aistudio.google.com"
+    },
+    "context": {
+      "interests": "Additional context",
+      "interestsPlaceholder": "e.g. I work from home, I want to improve focus and reduce screen fatigue, I enjoy yoga in the morning..."
+    },
+    "generate": "Generate routines",
+    "regenerate": "Regenerate",
+    "loading": "Crafting your routines…",
+    "results": {
+      "add": "Add",
+      "added": "Added ✓",
+      "dismiss": "Dismiss",
+      "steps": "steps"
+    },
+    "scheduleTypes": {
+      "morning_person": "Morning person",
+      "balanced": "Balanced",
+      "night_owl": "Night owl"
+    }
   }
 }

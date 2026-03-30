@@ -55,6 +55,7 @@
             :routine="routine"
             :default-expanded="block.key === currentBlock"
             @add-habit="openHabitLibrary"
+            @start="startRoutine"
           />
         </div>
       </section>
@@ -78,6 +79,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { useRoutineStore } from '@/stores/routines.store';
 import { useOnboardingStore } from '@/stores/onboarding.store';
 import RoutineCard from '@/components/routines/RoutineCard.vue';
@@ -85,6 +87,7 @@ import HabitLibrary from '@/components/ui/HabitLibrary.vue';
 import type { TTimeBlock } from '@/stores/routines.store';
 
 const { t } = useI18n();
+const router = useRouter();
 const store = useRoutineStore();
 const onboarding = useOnboardingStore();
 
@@ -123,6 +126,10 @@ const currentBlock = computed((): TTimeBlock => {
 
 function openHabitLibrary(routineId: string) {
   habitLibraryRoutineId.value = routineId;
+}
+
+function startRoutine(routineId: string) {
+  router.push(`/focus/${routineId}`);
 }
 </script>
 

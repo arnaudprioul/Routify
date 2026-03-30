@@ -51,9 +51,9 @@ function migrate(raw: Record<string, unknown>[]): IRoutine[] {
       const days: TDayOfWeek[] =
         freq === 'weekly' ? ['mon', 'wed', 'fri'] : [];
       const { frequency: _f, ...rest } = r;
-      return { ...rest, timeBlock, days } as IRoutine;
+      return { ...rest, timeBlock, days } as unknown as IRoutine;
     }
-    return r as IRoutine;
+    return r as unknown as IRoutine;
   });
 }
 
@@ -235,6 +235,36 @@ export const useRoutineStore = defineStore('routines', () => {
     save();
   }
 
+  function reorderItems(routineId: string, from: number, to: number) {
+    const routine = routines.value.find((r) => r.id === routineId);
+    if (!routine || from === to) return;
+    const items = [...routine.items];
+    const [moved] = items.splice(from, 1);
+    items.splice(to, 0, moved);
+    routine.items = items;
+    save();
+  }
+
+  function updateItem(
+    routineId: string,
+    itemId: string,
+    patch: Partial<Pick<IRoutineItem, 'label' | 'durationMin'>>,
+  ) {
+    const routine = routines.value.find((r) => r.id === routineId);
+    if (!routine) return;
+    const item = routine.items.find((i) => i.id === itemId);
+    if (!item) return;
+    Object.assign(item, patch);
+    save();
+  }
+
+  function deleteItem(routineId: string, itemId: string) {
+    const routine = routines.value.find((r) => r.id === routineId);
+    if (!routine) return;
+    routine.items = routine.items.filter((i) => i.id !== itemId);
+    save();
+  }
+
   function deleteRoutine(id: string) {
     routines.value = routines.value.filter((r) => r.id !== id);
     save();
@@ -259,6 +289,9 @@ export const useRoutineStore = defineStore('routines', () => {
     toggleItem,
     addRoutine,
     addItemToRoutine,
+    reorderItems,
+    updateItem,
+    deleteItem,
     updateRoutine,
     deleteRoutine,
     resetTodayItems,

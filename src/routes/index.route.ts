@@ -5,6 +5,7 @@ import TemplatesPage from '@/pages/templates.vue';
 import StatsPage from '@/pages/stats.vue';
 import OnboardingPage from '@/pages/onboarding.vue';
 import BreathingPage from '@/pages/breathing.vue';
+import FocusPage from '@/pages/focus.vue';
 import { useOnboardingStore } from '@/stores/onboarding.store';
 
 export const router = createRouter({
@@ -17,6 +18,7 @@ export const router = createRouter({
     { path: '/templates', name: 'templates', component: TemplatesPage },
     { path: '/stats', name: 'stats', component: StatsPage },
     { path: '/breathe', name: 'breathe', component: BreathingPage },
+    { path: '/focus/:routineId', name: 'focus', component: FocusPage, meta: { fullscreen: true } },
   ],
 });
 
