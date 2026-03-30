@@ -340,6 +340,11 @@
       "title": "Routine Complete!",
       "cta": "Back to Today"
     },
+    "autoflow": {
+      "label": "Also scheduled soon",
+      "startNext": "Start next",
+      "notNow": "Not now"
+    },
     "notFound": "Routine not found.",
     "backToToday": "Back to Today"
   },

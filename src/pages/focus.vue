@@ -15,6 +15,33 @@
       </button>
     </div>
 
+    <!-- ── NEXT ROUTINE PROPOSAL ── -->
+    <div v-else-if="showNextProposal && nextRoutine" class="focus-complete animate-fade-in">
+      <div class="complete-glow" :style="{ background: routine?.color + '22' }">
+        <span class="complete-icon">{{ routine?.icon }}</span>
+      </div>
+      <h1 class="complete-title">{{ t('focus.complete.title') }}</h1>
+      <p class="complete-subtitle">{{ routine?.name }}</p>
+      <div class="next-proposal">
+        <p class="next-proposal-label">{{ t('focus.autoflow.label') }}</p>
+        <div class="next-proposal-card" :style="{ '--next-color': nextRoutine.color }">
+          <span class="next-routine-icon">{{ nextRoutine.icon }}</span>
+          <div>
+            <p class="next-routine-name">{{ nextRoutine.name }}</p>
+            <p class="next-routine-time">{{ nextRoutine.reminderTime }}</p>
+          </div>
+        </div>
+        <div class="next-proposal-actions">
+          <button class="btn-cta" @click="router.push(`/focus/${nextRoutine.id}`)">
+            {{ t('focus.autoflow.startNext') }}
+          </button>
+          <button class="btn-not-now" @click="showNextProposal = false; isComplete = true">
+            {{ t('focus.autoflow.notNow') }}
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- ── ACTIVE SESSION ── -->
     <template v-else-if="routine && currentItem">
       <!-- Top bar -->
@@ -139,6 +166,25 @@ const maxMin = route.query.maxMin ? Number(route.query.maxMin) : null;
 
 const routine = computed(() => store.routines.find((r) => r.id === routineId) ?? null);
 
+// Auto-flow: routine proposed after completing the current one
+const nextRoutine = computed(() => {
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const todayDow = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][now.getDay()];
+
+  return store.routines.find((r) => {
+    if (r.id === routineId) return false;
+    if (!r.reminderTime) return false;
+    if (r.items.every((i) => i.completed)) return false;
+    // Check scheduled today
+    if (r.days.length > 0 && !r.days.includes(todayDow as never)) return false;
+    // Check reminder is within the next 30 minutes
+    const [h, m] = r.reminderTime.split(':').map(Number);
+    const reminderMin = h * 60 + m;
+    return reminderMin >= nowMin && reminderMin <= nowMin + 30;
+  }) ?? null;
+});
+
 // Short version: take only items that cumulatively fit within maxMin
 const sessionItems = computed(() => {
   const items = routine.value?.items ?? [];
@@ -154,6 +200,7 @@ const sessionItems = computed(() => {
 const currentIndex = ref(0);
 const isComplete = ref(false);
 const isAutoAdvancing = ref(false);
+const showNextProposal = ref(false);
 
 const currentItem = computed(() => sessionItems.value[currentIndex.value] ?? null);
 
@@ -209,8 +256,12 @@ function advanceStep() {
     currentIndex.value++;
     initTimer();
   } else {
-    isComplete.value = true;
     playCompletionSound();
+    if (nextRoutine.value) {
+      showNextProposal.value = true;
+    } else {
+      isComplete.value = true;
+    }
   }
 }
 
@@ -556,6 +607,68 @@ onMounted(() => {
   color: var(--text-muted);
   text-align: center;
 }
+
+/* Next routine proposal */
+.next-proposal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 300px;
+  margin-top: var(--sp-2);
+}
+
+.next-proposal-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.next-proposal-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--next-color, var(--accent));
+  border-radius: var(--radius-md);
+}
+
+.next-routine-icon { font-size: 20px; }
+
+.next-routine-name {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.next-routine-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.next-proposal-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+}
+
+.btn-not-now {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  padding: var(--sp-1) var(--sp-3);
+  transition: color var(--duration-fast);
+}
+
+.btn-not-now:hover { color: var(--text-secondary); }
 
 .btn-cta {
   margin-top: var(--sp-2);

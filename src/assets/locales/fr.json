@@ -340,6 +340,11 @@
       "title": "Routine terminée !",
       "cta": "Retour à Aujourd'hui"
     },
+    "autoflow": {
+      "label": "Aussi prévue bientôt",
+      "startNext": "Démarrer la suivante",
+      "notNow": "Pas maintenant"
+    },
     "notFound": "Routine introuvable.",
     "backToToday": "Retour à Aujourd'hui"
   },
