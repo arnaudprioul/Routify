@@ -320,7 +320,10 @@
     "delete": "Supprimer la routine",
     "editItem": "Modifier l'élément",
     "deleteItem": "Supprimer l'élément",
-    "dragHandle": "Glisser pour réordonner"
+    "dragHandle": "Glisser pour réordonner",
+    "missed": "Manquée",
+    "doItNow": "La faire maintenant",
+    "shortVersion": "Version courte"
   },
   "focus": {
     "exit": "Quitter le focus",

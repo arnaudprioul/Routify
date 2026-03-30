@@ -31,7 +31,7 @@
         <div class="focus-step-counter">
           <span class="counter-current">{{ currentIndex + 1 }}</span>
           <span class="counter-sep">/</span>
-          <span class="counter-total">{{ routine.items.length }}</span>
+          <span class="counter-total">{{ sessionItems.length }}</span>
         </div>
       </header>
 
@@ -135,12 +135,27 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS; // ≈ 452.4
 
 // ── State ──────────────────────────────────────────────────────────────────
 const routineId = route.params.routineId as string;
+const maxMin = route.query.maxMin ? Number(route.query.maxMin) : null;
+
 const routine = computed(() => store.routines.find((r) => r.id === routineId) ?? null);
+
+// Short version: take only items that cumulatively fit within maxMin
+const sessionItems = computed(() => {
+  const items = routine.value?.items ?? [];
+  if (!maxMin) return items;
+  let accumulated = 0;
+  return items.filter((item) => {
+    const d = item.durationMin ?? 2;
+    if (accumulated + d <= maxMin) { accumulated += d; return true; }
+    return false;
+  });
+});
+
 const currentIndex = ref(0);
 const isComplete = ref(false);
 const isAutoAdvancing = ref(false);
 
-const currentItem = computed(() => routine.value?.items[currentIndex.value] ?? null);
+const currentItem = computed(() => sessionItems.value[currentIndex.value] ?? null);
 
 // ── Timer ──────────────────────────────────────────────────────────────────
 function initTimer() {
@@ -170,7 +185,7 @@ watch(
 
 // ── Session progress ───────────────────────────────────────────────────────
 const sessionProgress = computed(() => {
-  const total = routine.value?.items.length ?? 0;
+  const total = sessionItems.value.length;
   return total > 0 ? (currentIndex.value / total) * 100 : 0;
 });
 
@@ -189,7 +204,7 @@ const timerOffset = computed(() => {
 // ── Actions ────────────────────────────────────────────────────────────────
 function advanceStep() {
   timer.stop();
-  const items = routine.value?.items ?? [];
+  const items = sessionItems.value;
   if (currentIndex.value < items.length - 1) {
     currentIndex.value++;
     initTimer();
@@ -251,16 +266,16 @@ function playCompletionSound() {
 
 // ── Lifecycle ──────────────────────────────────────────────────────────────
 onMounted(() => {
-  const r = routine.value;
-  if (!r || r.items.length === 0) return;
+  const items = sessionItems.value;
+  if (items.length === 0) return;
 
-  const allDone = r.items.every((i) => i.completed);
+  const allDone = items.every((i) => i.completed);
   if (allDone) {
     isComplete.value = true;
     return;
   }
 
-  const firstIncomplete = r.items.findIndex((i) => !i.completed);
+  const firstIncomplete = items.findIndex((i) => !i.completed);
   currentIndex.value = firstIncomplete >= 0 ? firstIncomplete : 0;
   initTimer();
 });

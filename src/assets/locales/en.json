@@ -320,7 +320,10 @@
     "delete": "Delete routine",
     "editItem": "Edit item",
     "deleteItem": "Delete item",
-    "dragHandle": "Drag to reorder"
+    "dragHandle": "Drag to reorder",
+    "missed": "Missed",
+    "doItNow": "Do it now",
+    "shortVersion": "Short version"
   },
   "focus": {
     "exit": "Exit focus",

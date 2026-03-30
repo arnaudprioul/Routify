@@ -80,6 +80,21 @@
       <span class="progress-text">{{ completedCount }}/{{ routine.items.length }}</span>
     </div>
 
+    <!-- Missed banner -->
+    <Transition name="missed">
+      <div v-if="isMissed" class="missed-banner">
+        <span class="missed-label">{{ t('card.missed') }}</span>
+        <div class="missed-actions">
+          <button class="btn-do-now" @click.stop="$emit('start', routine.id)">
+            {{ t('card.doItNow') }}
+          </button>
+          <button v-if="hasShortVersion" class="btn-short" @click.stop="$emit('startShort', routine.id)">
+            {{ t('card.shortVersion') }}
+          </button>
+        </div>
+      </div>
+    </Transition>
+
     <!-- Items -->
     <Transition name="expand">
       <div
@@ -211,6 +226,7 @@ defineEmits<{
   edit: [routineId: string];
   delete: [routineId: string];
   start: [routineId: string];
+  startShort: [routineId: string];
 }>();
 const props = defineProps<{ routine: IRoutine; defaultExpanded?: boolean }>();
 const store = useRoutineStore();
@@ -299,6 +315,21 @@ const isCompleted = computed(
 const progressPercent = computed(() =>
   props.routine.items.length ? (completedCount.value / props.routine.items.length) * 100 : 0,
 );
+
+// Missed: has a reminder, current time is past it, not yet completed today
+const isMissed = computed(() => {
+  if (isCompleted.value || !props.routine.reminderTime) return false;
+  const [h, m] = props.routine.reminderTime.split(':').map(Number);
+  const now = new Date();
+  const reminderMs = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m).getTime();
+  return Date.now() > reminderMs + 5 * 60 * 1000; // 5 min grace period
+});
+
+// Short version: items that cumulatively fit within 15 minutes
+const hasShortVersion = computed(() => {
+  const totalMin = props.routine.items.reduce((s, i) => s + (i.durationMin ?? 2), 0);
+  return totalMin > 15 && props.routine.items.length > 1;
+});
 </script>
 
 <style scoped>
@@ -720,6 +751,59 @@ const progressPercent = computed(() =>
 }
 
 .btn-item-cancel:hover { color: var(--text-primary); background: var(--bg-overlay); }
+
+/* Missed banner */
+.missed-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius-sm);
+}
+
+.missed-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--accent-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.missed-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.btn-do-now {
+  padding: 3px var(--sp-3);
+  background: var(--accent-amber);
+  color: #000;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  transition: opacity var(--duration-fast);
+}
+
+.btn-do-now:hover { opacity: 0.85; }
+
+.btn-short {
+  padding: 3px var(--sp-3);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--accent-amber);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  transition: background var(--duration-fast);
+}
+
+.btn-short:hover { background: rgba(245, 158, 11, 0.1); }
+
+.missed-enter-active { animation: fade-in var(--duration-base) var(--ease-out) both; }
+.missed-leave-active { transition: opacity var(--duration-fast); }
+.missed-leave-to     { opacity: 0; }
 
 /* Add habit */
 .add-habit-btn {

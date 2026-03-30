@@ -52,6 +52,7 @@
           @edit="openEditModal"
           @delete="confirmDelete"
           @start="startRoutine"
+          @start-short="startShortRoutine"
         />
       </div>
     </div>
@@ -303,6 +304,10 @@ function openHabitLibrary(routineId: string) {
 
 function startRoutine(routineId: string) {
   router.push(`/focus/${routineId}`);
+}
+
+function startShortRoutine(routineId: string) {
+  router.push(`/focus/${routineId}?maxMin=15`);
 }
 </script>
 

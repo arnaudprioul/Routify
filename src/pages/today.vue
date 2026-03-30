@@ -56,6 +56,7 @@
             :default-expanded="block.key === currentBlock"
             @add-habit="openHabitLibrary"
             @start="startRoutine"
+            @start-short="startShortRoutine"
           />
         </div>
       </section>
@@ -130,6 +131,10 @@ function openHabitLibrary(routineId: string) {
 
 function startRoutine(routineId: string) {
   router.push(`/focus/${routineId}`);
+}
+
+function startShortRoutine(routineId: string) {
+  router.push(`/focus/${routineId}?maxMin=15`);
 }
 </script>
 
