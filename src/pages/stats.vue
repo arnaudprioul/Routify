@@ -27,6 +27,22 @@
       </div>
     </div>
 
+    <!-- Insights -->
+    <section v-if="statsStore.insights.length > 0" class="section">
+      <h2 class="section-title">{{ t('stats.sections.insights') }}</h2>
+      <div class="insights-list">
+        <div
+          v-for="(insight, i) in statsStore.insights"
+          :key="i"
+          class="insight-card"
+          :class="`insight-${insight.type}`"
+        >
+          <span class="insight-icon">{{ insight.routineIcon ?? insightTypeIcon[insight.type] }}</span>
+          <p class="insight-text">{{ t(insight.key, insight.params) }}</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <h2 class="section-title">{{ t('stats.sections.streakBoard') }}</h2>
       <div class="streak-list">
@@ -82,9 +98,19 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoutineStore } from '@/stores/routines.store';
+import { useStatsStore } from '@/stores/stats.store';
+import type { IInsight } from '@/stores/stats.store';
 
 const { t } = useI18n();
 const store = useRoutineStore();
+const statsStore = useStatsStore();
+
+const insightTypeIcon: Record<IInsight['type'], string> = {
+  success: '✦',
+  warning: '◈',
+  tip: '◉',
+  info: '◎',
+};
 
 const topStreak = computed(() => Math.max(0, ...store.routines.map((r) => r.streak)));
 const maxStreak = computed(() => topStreak.value || 1);
@@ -168,6 +194,54 @@ const heatmapDays = computed(() => {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.4px;
+}
+
+.insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.insight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  animation: fade-in var(--duration-base) var(--ease-out) both;
+}
+
+.insight-success {
+  background: rgba(34, 197, 94, 0.06);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.insight-warning {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.insight-tip {
+  background: rgba(139, 92, 246, 0.06);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.insight-info {
+  background: rgba(20, 184, 166, 0.06);
+  border-color: rgba(20, 184, 166, 0.2);
+}
+
+.insight-icon {
+  font-size: 14px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.insight-text {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 .section {

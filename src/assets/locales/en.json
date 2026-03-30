@@ -204,6 +204,7 @@
       "totalSteps": "Total Steps"
     },
     "sections": {
+      "insights": "Insights",
       "streakBoard": "Streak Board",
       "history": "Completion History",
       "last63": "Last 63 days"
@@ -211,6 +212,15 @@
     "streak": {
       "day": "day",
       "days": "days"
+    },
+    "insights": {
+      "neverCompleted": "{name} has never been completed. Too many steps?",
+      "neverCompletedLong": "{name} has never been completed. At {min} min, maybe it's too long?",
+      "inactive": "You haven't done {name} in {days} days.",
+      "habit7": "{streak} days in a row on {name} — it's becoming a habit.",
+      "habit21": "{streak} days straight on {name} — fully locked in.",
+      "forming": "{name} — {streak} day streak. {remaining} more days to make it a habit.",
+      "morningConsistency": "You're significantly more consistent with your morning routines than other time blocks."
     }
   },
   "onboarding": {

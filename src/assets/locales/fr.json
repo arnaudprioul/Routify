@@ -204,6 +204,7 @@
       "totalSteps": "Étapes totales"
     },
     "sections": {
+      "insights": "Insights",
       "streakBoard": "Tableau des séries",
       "history": "Historique de complétion",
       "last63": "63 derniers jours"
@@ -211,6 +212,15 @@
     "streak": {
       "day": "jour",
       "days": "jours"
+    },
+    "insights": {
+      "neverCompleted": "{name} n'a jamais été terminée. Trop d'étapes ?",
+      "neverCompletedLong": "{name} n'a jamais été terminée. Avec {min} min, peut-être trop longue ?",
+      "inactive": "Tu n'as pas fait {name} depuis {days} jours.",
+      "habit7": "{streak} jours d'affilée sur {name} — c'est une habitude.",
+      "habit21": "{streak} jours d'affilée sur {name} — c'est ancré.",
+      "forming": "{name} — {streak} jours de suite. Encore {remaining} jours pour ancrer l'habitude.",
+      "morningConsistency": "Tu es bien plus régulier sur tes routines du matin que sur les autres blocs."
     }
   },
   "onboarding": {
