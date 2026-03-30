@@ -342,8 +342,31 @@
   },
   "aiSuggest": {
     "button": "Suggestion IA",
-    "title": "Suggestions de routines par IA",
-    "subtitle": "Laissez l'IA créer des routines personnalisées selon votre profil",
+    "title": "Assistant IA",
+    "modes": {
+      "generate": "Générer",
+      "improve": "Améliorer",
+      "analyze": "Analyser"
+    },
+    "improve": {
+      "desc": "Sélectionnez une routine et laissez l'IA suggérer un meilleur ordre, des durées ajustées et supprimer les redondances.",
+      "pick": "Choisir une routine",
+      "pickPlaceholder": "Sélectionner une routine…",
+      "run": "Améliorer",
+      "original": "Original",
+      "suggested": "Suggestion IA",
+      "apply": "Appliquer les changements",
+      "back": "Retour"
+    },
+    "analyze": {
+      "desc": "L'IA analysera votre historique de complétion et expliquera pourquoi vous pourriez avoir du mal à maintenir une routine.",
+      "pick": "Choisir une routine",
+      "pickPlaceholder": "Sélectionner une routine…",
+      "run": "Analyser",
+      "analysisLabel": "Pourquoi vous avez du mal",
+      "suggestionLabel": "Une action concrète",
+      "back": "Retour"
+    },
     "close": "Fermer",
     "apiKeySetup": {
       "desc": "Entrez votre clé API Gemini gratuite pour activer les suggestions IA. Votre clé est stockée localement et n'est jamais transmise en dehors de Google.",

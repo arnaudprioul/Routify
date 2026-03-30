@@ -342,8 +342,31 @@
   },
   "aiSuggest": {
     "button": "AI Suggest",
-    "title": "AI Routine Suggestions",
-    "subtitle": "Let AI craft personalized routines based on your profile",
+    "title": "AI Assistant",
+    "modes": {
+      "generate": "Generate",
+      "improve": "Improve",
+      "analyze": "Analyze"
+    },
+    "improve": {
+      "desc": "Select a routine and let AI suggest a better order, adjusted durations, and remove any redundancy.",
+      "pick": "Choose a routine",
+      "pickPlaceholder": "Select a routine…",
+      "run": "Improve",
+      "original": "Original",
+      "suggested": "AI Suggestion",
+      "apply": "Apply changes",
+      "back": "Back"
+    },
+    "analyze": {
+      "desc": "AI will analyze your completion history and explain why you might be struggling with a routine.",
+      "pick": "Choose a routine",
+      "pickPlaceholder": "Select a routine…",
+      "run": "Analyze",
+      "analysisLabel": "Why you might be struggling",
+      "suggestionLabel": "One concrete action",
+      "back": "Back"
+    },
     "close": "Close",
     "apiKeySetup": {
       "desc": "Enter your free Gemini API key to enable AI-powered suggestions. Your key is stored locally and never sent anywhere except Google.",
