@@ -1,0 +1,302 @@
+{
+  "sidebar": {
+    "nav": {
+      "today": "Today",
+      "routines": "Routines",
+      "templates": "Templates",
+      "stats": "Stats",
+      "breathe": "Breathe"
+    },
+    "progress": {
+      "label": "Today"
+    },
+    "streak": {
+      "label": "day streak"
+    }
+  },
+  "today": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "title": "Today",
+    "progress": {
+      "label": "Daily Progress",
+      "done": "All done for today!"
+    },
+    "blocks": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "anytime": "Anytime"
+    },
+    "empty": {
+      "message": "No routines scheduled for today.",
+      "cta": "Browse templates →",
+      "block": "Nothing here yet"
+    }
+  },
+  "routines": {
+    "title": "Routines",
+    "subtitle": "{count} active routine | {count} active routines",
+    "new": "New Routine",
+    "tabs": {
+      "all": "All",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "anytime": "Anytime"
+    },
+    "empty": {
+      "message": "No routines here yet.",
+      "cta": "Start from a template →"
+    },
+    "modal": {
+      "title": "New Routine",
+      "fields": {
+        "name": "Name",
+        "namePlaceholder": "e.g. Evening Wind Down",
+        "icon": "Icon",
+        "color": "Color",
+        "timeBlock": "Time Block",
+        "days": "Days",
+        "daysHint": "Leave empty for every day",
+        "reminder": "Reminder"
+      },
+      "cancel": "Cancel",
+      "create": "Create"
+    },
+    "deleteConfirm": "Delete this routine?"
+  },
+  "timeBlock": {
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "anytime": "Anytime"
+  },
+  "days": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun"
+  },
+  "templates": {
+    "title": "Templates",
+    "subtitle": "Start fast with curated routine packs",
+    "meta": {
+      "steps": "{n} steps",
+      "min": "{n} min"
+    },
+    "categories": {
+      "all": "All",
+      "lifestyle": "Lifestyle",
+      "beauty": "Beauty",
+      "fitness": "Fitness",
+      "productivity": "Productivity",
+      "home": "Home",
+      "wellbeing": "Wellbeing"
+    },
+    "items": {
+      "morningPower": {
+        "name": "Morning Power",
+        "description": "Start your day with energy and intention.",
+        "steps": {
+          "water": "Drink water (500ml)",
+          "stretch": "Morning stretch",
+          "shower": "Cold shower",
+          "journal": "Journal — 3 gratitudes",
+          "goals": "Review daily goals"
+        }
+      },
+      "glowUpSkincare": {
+        "name": "Glow Up Skincare",
+        "description": "A complete AM/PM skincare ritual.",
+        "steps": {
+          "cleanser": "Cleanser",
+          "toner": "Toner or essence",
+          "serum": "Serum (Vitamin C / Niacinamide)",
+          "eyeCream": "Eye cream",
+          "moisturizer": "Moisturizer",
+          "spf": "SPF (AM only)"
+        }
+      },
+      "athleteMode": {
+        "name": "Athlete Mode",
+        "description": "Structured training + recovery protocol.",
+        "steps": {
+          "warmup": "Dynamic warm-up",
+          "training": "Main training block",
+          "cooldown": "Cool-down stretch",
+          "hydration": "Hydration log",
+          "nutrition": "Post-workout nutrition"
+        }
+      },
+      "deepWork": {
+        "name": "Deep Work",
+        "description": "Enter a focused, distraction-free state.",
+        "steps": {
+          "clear": "Clear desk & notifications off",
+          "priority": "Set single top priority task",
+          "focus1": "Focus block #1 (25 min)",
+          "break": "Short break",
+          "focus2": "Focus block #2 (25 min)"
+        }
+      },
+      "eveningWindDown": {
+        "name": "Evening Wind Down",
+        "description": "Prepare your body and mind for quality sleep.",
+        "steps": {
+          "noScreens": "No screens 30 min before bed",
+          "skincare": "PM skincare routine",
+          "journal": "Journal — top 3 wins today",
+          "read": "Read or meditate",
+          "intention": "Set tomorrow's intention"
+        }
+      },
+      "cleanSpace": {
+        "name": "Clean Space",
+        "description": "Keep your environment calm and organised.",
+        "steps": {
+          "bed": "Make bed & tidy bedroom",
+          "surfaces": "Wipe surfaces",
+          "vacuum": "Quick vacuum/sweep",
+          "bins": "Empty bins",
+          "kitchen": "Reset kitchen"
+        }
+      },
+      "entrepreneurPack": {
+        "name": "Entrepreneur Pack",
+        "description": "The daily habits of high-output founders.",
+        "steps": {
+          "metrics": "Review metrics dashboard",
+          "tasks": "Top 3 tasks for the day",
+          "inbox": "Inbox zero sprint (20 min)",
+          "outreach": "One outreach or networking action",
+          "eod": "EOD review & shutdown ritual"
+        }
+      },
+      "mindfulness": {
+        "name": "Mindfulness",
+        "description": "Build a daily meditation & mental hygiene practice.",
+        "steps": {
+          "breathwork": "Breathwork (4-7-8 pattern)",
+          "meditation": "Meditation session",
+          "gratitude": "Gratitude — 3 things",
+          "intention": "Intention setting"
+        }
+      }
+    }
+  },
+  "stats": {
+    "title": "Stats",
+    "subtitle": "Your consistency at a glance",
+    "cards": {
+      "bestStreak": "Best Streak",
+      "activeRoutines": "Active Routines",
+      "totalCompletions": "Total Completions",
+      "totalSteps": "Total Steps"
+    },
+    "sections": {
+      "streakBoard": "Streak Board",
+      "history": "Completion History",
+      "last63": "Last 63 days"
+    },
+    "streak": {
+      "day": "day",
+      "days": "days"
+    }
+  },
+  "onboarding": {
+    "step": "{current} of {total}",
+    "back": "Back",
+    "language": {
+      "title": "Choose your language",
+      "next": "Continue →"
+    },
+    "welcome": {
+      "title": "Welcome to Routify",
+      "subtitle": "Build better habits, one routine at a time.",
+      "nameLabel": "What's your name?",
+      "namePlaceholder": "Enter your name",
+      "next": "Let's go →"
+    },
+    "goals": {
+      "title": "What are your goals?",
+      "subtitle": "Pick everything you want to work on",
+      "next": "Continue →",
+      "items": {
+        "morning_routine": "Morning Routine",
+        "fitness": "Fitness & Exercise",
+        "skincare": "Skincare",
+        "productivity": "Deep Work",
+        "sleep": "Better Sleep",
+        "mindfulness": "Mindfulness"
+      }
+    },
+    "schedule": {
+      "title": "When do you thrive?",
+      "subtitle": "We'll organise your blocks accordingly",
+      "next": "Continue →",
+      "options": {
+        "morning_person": {
+          "label": "Morning Person",
+          "desc": "Up before 8am, energy peaks early"
+        },
+        "balanced": {
+          "label": "Balanced",
+          "desc": "Mix of morning and evening habits"
+        },
+        "night_owl": {
+          "label": "Night Owl",
+          "desc": "Peak after noon, wind down late"
+        }
+      }
+    },
+    "ready": {
+      "title": "You're all set",
+      "subtitle": "Your personalized tracker is ready.",
+      "cta": "Start Tracking"
+    }
+  },
+  "breathing": {
+    "title": "Breathing",
+    "subtitle": "Take a moment to breathe",
+    "technique": "4-7-8 Technique",
+    "start": "Start",
+    "pause": "Pause",
+    "resume": "Resume",
+    "reset": "Reset",
+    "phases": {
+      "inhale": "Inhale",
+      "hold": "Hold",
+      "exhale": "Exhale",
+      "rest": "Rest"
+    },
+    "cycles": "0 cycles | 1 cycle | {n} cycles",
+    "done": "Session complete"
+  },
+  "habitLibrary": {
+    "title": "Habit Library",
+    "subtitle": "Add habits to your routine",
+    "close": "Close",
+    "add": "Add",
+    "categories": {
+      "health": "Health",
+      "mindfulness": "Mindfulness",
+      "productivity": "Productivity",
+      "fitness": "Fitness",
+      "sleep": "Sleep",
+      "beauty": "Beauty"
+    }
+  },
+  "card": {
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "complete": "Complete!",
+    "addHabit": "Add habit"
+  }
+}

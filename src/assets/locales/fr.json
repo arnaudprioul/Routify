@@ -1,0 +1,302 @@
+{
+  "sidebar": {
+    "nav": {
+      "today": "Aujourd'hui",
+      "routines": "Routines",
+      "templates": "Modèles",
+      "stats": "Stats",
+      "breathe": "Respirer"
+    },
+    "progress": {
+      "label": "Aujourd'hui"
+    },
+    "streak": {
+      "label": "jours de série"
+    }
+  },
+  "today": {
+    "greeting": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir"
+    },
+    "title": "Aujourd'hui",
+    "progress": {
+      "label": "Progression du jour",
+      "done": "Tout est fait !"
+    },
+    "blocks": {
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "anytime": "À tout moment"
+    },
+    "empty": {
+      "message": "Aucune routine prévue aujourd'hui.",
+      "cta": "Parcourir les modèles →",
+      "block": "Rien ici pour l'instant"
+    }
+  },
+  "routines": {
+    "title": "Routines",
+    "subtitle": "{count} routine active | {count} routines actives",
+    "new": "Nouvelle routine",
+    "tabs": {
+      "all": "Toutes",
+      "morning": "Matin",
+      "afternoon": "Après-midi",
+      "evening": "Soir",
+      "anytime": "À tout moment"
+    },
+    "empty": {
+      "message": "Aucune routine pour l'instant.",
+      "cta": "Commencer avec un modèle →"
+    },
+    "modal": {
+      "title": "Nouvelle routine",
+      "fields": {
+        "name": "Nom",
+        "namePlaceholder": "ex. Détente du soir",
+        "icon": "Icône",
+        "color": "Couleur",
+        "timeBlock": "Moment de la journée",
+        "days": "Jours",
+        "daysHint": "Laisser vide pour tous les jours",
+        "reminder": "Rappel"
+      },
+      "cancel": "Annuler",
+      "create": "Créer"
+    },
+    "deleteConfirm": "Supprimer cette routine ?"
+  },
+  "timeBlock": {
+    "morning": "Matin",
+    "afternoon": "Après-midi",
+    "evening": "Soir",
+    "anytime": "À tout moment"
+  },
+  "days": {
+    "mon": "Lun",
+    "tue": "Mar",
+    "wed": "Mer",
+    "thu": "Jeu",
+    "fri": "Ven",
+    "sat": "Sam",
+    "sun": "Dim"
+  },
+  "templates": {
+    "title": "Modèles",
+    "subtitle": "Démarrez rapidement avec des routines prêtes à l'emploi",
+    "meta": {
+      "steps": "{n} étapes",
+      "min": "{n} min"
+    },
+    "categories": {
+      "all": "Tous",
+      "lifestyle": "Lifestyle",
+      "beauty": "Beauté",
+      "fitness": "Sport",
+      "productivity": "Productivité",
+      "home": "Maison",
+      "wellbeing": "Bien-être"
+    },
+    "items": {
+      "morningPower": {
+        "name": "Morning Power",
+        "description": "Commencez votre journée avec énergie et intention.",
+        "steps": {
+          "water": "Boire de l'eau (500ml)",
+          "stretch": "Étirements matinaux",
+          "shower": "Douche froide",
+          "journal": "Journal — 3 gratitudes",
+          "goals": "Revoir les objectifs du jour"
+        }
+      },
+      "glowUpSkincare": {
+        "name": "Glow Up Skincare",
+        "description": "Un rituel soin complet matin et soir.",
+        "steps": {
+          "cleanser": "Nettoyant",
+          "toner": "Tonique ou essence",
+          "serum": "Sérum (Vitamine C / Niacinamide)",
+          "eyeCream": "Contour des yeux",
+          "moisturizer": "Hydratant",
+          "spf": "SPF (matin uniquement)"
+        }
+      },
+      "athleteMode": {
+        "name": "Mode Athlète",
+        "description": "Entraînement structuré + protocole de récupération.",
+        "steps": {
+          "warmup": "Échauffement dynamique",
+          "training": "Bloc d'entraînement principal",
+          "cooldown": "Retour au calme & étirements",
+          "hydration": "Journal d'hydratation",
+          "nutrition": "Nutrition post-entraînement"
+        }
+      },
+      "deepWork": {
+        "name": "Travail Profond",
+        "description": "Entrez dans un état de concentration totale.",
+        "steps": {
+          "clear": "Bureau rangé & notifications coupées",
+          "priority": "Définir la priorité principale du jour",
+          "focus1": "Bloc de focus #1 (25 min)",
+          "break": "Courte pause",
+          "focus2": "Bloc de focus #2 (25 min)"
+        }
+      },
+      "eveningWindDown": {
+        "name": "Détente du Soir",
+        "description": "Préparez votre corps et votre esprit à un sommeil de qualité.",
+        "steps": {
+          "noScreens": "Pas d'écrans 30 min avant de dormir",
+          "skincare": "Routine soin du soir",
+          "journal": "Journal — 3 victoires du jour",
+          "read": "Lire ou méditer",
+          "intention": "Définir l'intention du lendemain"
+        }
+      },
+      "cleanSpace": {
+        "name": "Espace Propre",
+        "description": "Gardez votre environnement calme et organisé.",
+        "steps": {
+          "bed": "Faire le lit & ranger la chambre",
+          "surfaces": "Essuyer les surfaces",
+          "vacuum": "Passer l'aspirateur",
+          "bins": "Vider les poubelles",
+          "kitchen": "Remettre la cuisine en ordre"
+        }
+      },
+      "entrepreneurPack": {
+        "name": "Pack Entrepreneur",
+        "description": "Les habitudes quotidiennes des fondateurs les plus productifs.",
+        "steps": {
+          "metrics": "Revue du tableau de bord",
+          "tasks": "Top 3 tâches du jour",
+          "inbox": "Sprint inbox zéro (20 min)",
+          "outreach": "Une action de networking",
+          "eod": "Revue de fin de journée"
+        }
+      },
+      "mindfulness": {
+        "name": "Pleine Conscience",
+        "description": "Construisez une pratique quotidienne de méditation.",
+        "steps": {
+          "breathwork": "Respiration (technique 4-7-8)",
+          "meditation": "Séance de méditation",
+          "gratitude": "Gratitude — 3 choses",
+          "intention": "Définir une intention"
+        }
+      }
+    }
+  },
+  "stats": {
+    "title": "Stats",
+    "subtitle": "Votre régularité en un coup d'œil",
+    "cards": {
+      "bestStreak": "Meilleure série",
+      "activeRoutines": "Routines actives",
+      "totalCompletions": "Complétions totales",
+      "totalSteps": "Étapes totales"
+    },
+    "sections": {
+      "streakBoard": "Tableau des séries",
+      "history": "Historique de complétion",
+      "last63": "63 derniers jours"
+    },
+    "streak": {
+      "day": "jour",
+      "days": "jours"
+    }
+  },
+  "onboarding": {
+    "step": "{current} sur {total}",
+    "back": "Retour",
+    "language": {
+      "title": "Choisissez votre langue",
+      "next": "Continuer →"
+    },
+    "welcome": {
+      "title": "Bienvenue sur Routify",
+      "subtitle": "Construisez de meilleures habitudes, une routine à la fois.",
+      "nameLabel": "Comment vous appelez-vous ?",
+      "namePlaceholder": "Votre prénom",
+      "next": "C'est parti →"
+    },
+    "goals": {
+      "title": "Quels sont vos objectifs ?",
+      "subtitle": "Sélectionnez tout ce qui vous correspond",
+      "next": "Continuer →",
+      "items": {
+        "morning_routine": "Routine matinale",
+        "fitness": "Sport & exercice",
+        "skincare": "Soins de la peau",
+        "productivity": "Travail en profondeur",
+        "sleep": "Meilleur sommeil",
+        "mindfulness": "Pleine conscience"
+      }
+    },
+    "schedule": {
+      "title": "Quand êtes-vous au top ?",
+      "subtitle": "Nous organiserons vos blocs en conséquence",
+      "next": "Continuer →",
+      "options": {
+        "morning_person": {
+          "label": "Lève-tôt",
+          "desc": "Debout avant 8h, énergie maximale le matin"
+        },
+        "balanced": {
+          "label": "Équilibré",
+          "desc": "Mix d'habitudes matin et soir"
+        },
+        "night_owl": {
+          "label": "Couche-tard",
+          "desc": "Pic après midi, coucher tardif"
+        }
+      }
+    },
+    "ready": {
+      "title": "Vous êtes prêt",
+      "subtitle": "Votre tracker personnalisé est prêt.",
+      "cta": "Commencer"
+    }
+  },
+  "breathing": {
+    "title": "Respiration",
+    "subtitle": "Prenez un moment pour respirer",
+    "technique": "Technique 4-7-8",
+    "start": "Démarrer",
+    "pause": "Pause",
+    "resume": "Reprendre",
+    "reset": "Réinitialiser",
+    "phases": {
+      "inhale": "Inspirez",
+      "hold": "Retenez",
+      "exhale": "Expirez",
+      "rest": "Repos"
+    },
+    "cycles": "0 cycles | 1 cycle | {n} cycles",
+    "done": "Séance terminée"
+  },
+  "habitLibrary": {
+    "title": "Bibliothèque d'habitudes",
+    "subtitle": "Ajoutez des habitudes à votre routine",
+    "close": "Fermer",
+    "add": "Ajouter",
+    "categories": {
+      "health": "Santé",
+      "mindfulness": "Pleine conscience",
+      "productivity": "Productivité",
+      "fitness": "Sport",
+      "sleep": "Sommeil",
+      "beauty": "Beauté"
+    }
+  },
+  "card": {
+    "expand": "Développer",
+    "collapse": "Réduire",
+    "complete": "Terminé !",
+    "addHabit": "Ajouter une habitude"
+  }
+}

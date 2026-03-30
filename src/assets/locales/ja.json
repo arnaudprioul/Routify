@@ -1,0 +1,298 @@
+{
+  "sidebar": {
+    "nav": {
+      "today": "今日",
+      "routines": "ルーティン",
+      "templates": "テンプレート",
+      "stats": "統計",
+      "breathe": "呼吸"
+    },
+    "progress": { "label": "今日" },
+    "streak": { "label": "日連続" }
+  },
+  "today": {
+    "greeting": {
+      "morning": "おはようございます",
+      "afternoon": "こんにちは",
+      "evening": "こんばんは"
+    },
+    "title": "今日",
+    "progress": {
+      "label": "今日の進捗",
+      "done": "今日は全て完了！"
+    },
+    "blocks": {
+      "morning": "朝",
+      "afternoon": "午後",
+      "evening": "夜",
+      "anytime": "いつでも"
+    },
+    "empty": {
+      "message": "今日のルーティンはありません。",
+      "cta": "テンプレートを見る →",
+      "block": "まだありません"
+    }
+  },
+  "routines": {
+    "title": "ルーティン",
+    "subtitle": "0件のルーティン | {count}件のルーティン",
+    "new": "新しいルーティン",
+    "tabs": {
+      "all": "すべて",
+      "morning": "朝",
+      "afternoon": "午後",
+      "evening": "夜",
+      "anytime": "いつでも"
+    },
+    "empty": {
+      "message": "ルーティンがまだありません。",
+      "cta": "テンプレートから始める →"
+    },
+    "modal": {
+      "title": "新しいルーティン",
+      "fields": {
+        "name": "名前",
+        "namePlaceholder": "例：夜のリラックス",
+        "icon": "アイコン",
+        "color": "カラー",
+        "timeBlock": "時間帯",
+        "days": "曜日",
+        "daysHint": "空欄は毎日",
+        "reminder": "リマインダー"
+      },
+      "cancel": "キャンセル",
+      "create": "作成"
+    },
+    "deleteConfirm": "このルーティンを削除しますか？"
+  },
+  "timeBlock": {
+    "morning": "朝",
+    "afternoon": "午後",
+    "evening": "夜",
+    "anytime": "いつでも"
+  },
+  "days": {
+    "mon": "月",
+    "tue": "火",
+    "wed": "水",
+    "thu": "木",
+    "fri": "金",
+    "sat": "土",
+    "sun": "日"
+  },
+  "templates": {
+    "title": "テンプレート",
+    "subtitle": "厳選されたルーティンパックで素早くスタート",
+    "meta": {
+      "steps": "{n}ステップ",
+      "min": "{n}分"
+    },
+    "categories": {
+      "all": "すべて",
+      "lifestyle": "ライフスタイル",
+      "beauty": "ビューティー",
+      "fitness": "フィットネス",
+      "productivity": "生産性",
+      "home": "ホーム",
+      "wellbeing": "ウェルネス"
+    },
+    "items": {
+      "morningPower": {
+        "name": "モーニングパワー",
+        "description": "エネルギーと意図を持って一日を始めましょう。",
+        "steps": {
+          "water": "水を飲む（500ml）",
+          "stretch": "朝のストレッチ",
+          "shower": "冷水シャワー",
+          "journal": "日記 — 3つの感謝",
+          "goals": "今日の目標確認"
+        }
+      },
+      "glowUpSkincare": {
+        "name": "グロウアップスキンケア",
+        "description": "朝晩の完全スキンケアルーティン。",
+        "steps": {
+          "cleanser": "洗顔",
+          "toner": "化粧水",
+          "serum": "美容液（ビタミンC / ナイアシンアミド）",
+          "eyeCream": "アイクリーム",
+          "moisturizer": "保湿クリーム",
+          "spf": "日焼け止め（朝のみ）"
+        }
+      },
+      "athleteMode": {
+        "name": "アスリートモード",
+        "description": "トレーニング＋回復プロトコル。",
+        "steps": {
+          "warmup": "ダイナミックウォームアップ",
+          "training": "メイントレーニング",
+          "cooldown": "クールダウン＆ストレッチ",
+          "hydration": "水分補給ログ",
+          "nutrition": "トレーニング後の栄養補給"
+        }
+      },
+      "deepWork": {
+        "name": "ディープワーク",
+        "description": "集中した作業状態に入りましょう。",
+        "steps": {
+          "clear": "デスクを片付け、通知をオフ",
+          "priority": "今日の最重要タスクを決める",
+          "focus1": "集中ブロック#1（25分）",
+          "break": "短い休憩",
+          "focus2": "集中ブロック#2（25分）"
+        }
+      },
+      "eveningWindDown": {
+        "name": "夜のリラックス",
+        "description": "質の良い睡眠のために心身を準備。",
+        "steps": {
+          "noScreens": "寝る30分前はスクリーンなし",
+          "skincare": "夜のスキンケア",
+          "journal": "日記 — 今日の3つの成果",
+          "read": "読書または瞑想",
+          "intention": "明日の意図を設定"
+        }
+      },
+      "cleanSpace": {
+        "name": "清潔なスペース",
+        "description": "整った環境を保ちましょう。",
+        "steps": {
+          "bed": "ベッドを整え、部屋を片付ける",
+          "surfaces": "表面を拭く",
+          "vacuum": "掃除機をかける",
+          "bins": "ゴミを捨てる",
+          "kitchen": "キッチンをリセット"
+        }
+      },
+      "entrepreneurPack": {
+        "name": "アントレプレナーパック",
+        "description": "高生産性の起業家の日課。",
+        "steps": {
+          "metrics": "ダッシュボードを確認",
+          "tasks": "今日のトップ3タスク",
+          "inbox": "受信箱ゼロスプリント（20分）",
+          "outreach": "ネットワーキング活動",
+          "eod": "終業レビュー"
+        }
+      },
+      "mindfulness": {
+        "name": "マインドフルネス",
+        "description": "日々の瞑想と心の健康を習慣化。",
+        "steps": {
+          "breathwork": "呼吸法（4-7-8パターン）",
+          "meditation": "瞑想セッション",
+          "gratitude": "感謝 — 3つのこと",
+          "intention": "意図の設定"
+        }
+      }
+    }
+  },
+  "stats": {
+    "title": "統計",
+    "subtitle": "継続の記録",
+    "cards": {
+      "bestStreak": "最高連続",
+      "activeRoutines": "ルーティン数",
+      "totalCompletions": "完了回数",
+      "totalSteps": "合計ステップ"
+    },
+    "sections": {
+      "streakBoard": "連続ボード",
+      "history": "完了履歴",
+      "last63": "過去63日間"
+    },
+    "streak": {
+      "day": "日",
+      "days": "日"
+    }
+  },
+  "onboarding": {
+    "step": "{current} / {total}",
+    "back": "戻る",
+    "language": {
+      "title": "言語を選択",
+      "next": "続ける →"
+    },
+    "welcome": {
+      "title": "Routifyへようこそ",
+      "subtitle": "一つのルーティンから、より良い習慣を。",
+      "nameLabel": "お名前は？",
+      "namePlaceholder": "お名前を入力",
+      "next": "はじめましょう →"
+    },
+    "goals": {
+      "title": "目標は何ですか？",
+      "subtitle": "当てはまるものをすべて選択",
+      "next": "続ける →",
+      "items": {
+        "morning_routine": "朝のルーティン",
+        "fitness": "フィットネス",
+        "skincare": "スキンケア",
+        "productivity": "集中作業",
+        "sleep": "睡眠改善",
+        "mindfulness": "マインドフルネス"
+      }
+    },
+    "schedule": {
+      "title": "いつが一番元気ですか？",
+      "subtitle": "それに合わせてブロックを整理します",
+      "next": "続ける →",
+      "options": {
+        "morning_person": {
+          "label": "朝型",
+          "desc": "8時前に起床、午前中にエネルギーが高い"
+        },
+        "balanced": {
+          "label": "バランス型",
+          "desc": "朝と夜の習慣を組み合わせる"
+        },
+        "night_owl": {
+          "label": "夜型",
+          "desc": "正午以降にピーク、夜遅く就寝"
+        }
+      }
+    },
+    "ready": {
+      "title": "準備完了",
+      "subtitle": "あなた専用のトラッカーが使えます。",
+      "cta": "始める"
+    }
+  },
+  "breathing": {
+    "title": "呼吸",
+    "subtitle": "深呼吸しましょう",
+    "technique": "4-7-8 呼吸法",
+    "start": "スタート",
+    "pause": "一時停止",
+    "resume": "再開",
+    "reset": "リセット",
+    "phases": {
+      "inhale": "吸う",
+      "hold": "止める",
+      "exhale": "吐く",
+      "rest": "休む"
+    },
+    "cycles": "0回 | 1回 | {n}回",
+    "done": "セッション完了"
+  },
+  "habitLibrary": {
+    "title": "習慣ライブラリ",
+    "subtitle": "ルーティンに習慣を追加",
+    "close": "閉じる",
+    "add": "追加",
+    "categories": {
+      "health": "健康",
+      "mindfulness": "マインドフル",
+      "productivity": "生産性",
+      "fitness": "フィットネス",
+      "sleep": "睡眠",
+      "beauty": "ビューティー"
+    }
+  },
+  "card": {
+    "expand": "展開",
+    "collapse": "閉じる",
+    "complete": "完了！",
+    "addHabit": "習慣を追加"
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "sidebar": {
+    "nav": {
+      "today": "今天",
+      "routines": "日程",
+      "templates": "模板",
+      "stats": "统计",
+      "breathe": "呼吸"
+    },
+    "progress": { "label": "今天" },
+    "streak": { "label": "天连续" }
+  },
+  "today": {
+    "greeting": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好"
+    },
+    "title": "今天",
+    "progress": {
+      "label": "今日进度",
+      "done": "今天全部完成！"
+    },
+    "blocks": {
+      "morning": "早晨",
+      "afternoon": "下午",
+      "evening": "晚上",
+      "anytime": "随时"
+    },
+    "empty": {
+      "message": "今天没有安排的日程。",
+      "cta": "浏览模板 →",
+      "block": "暂无内容"
+    }
+  },
+  "routines": {
+    "title": "日程",
+    "subtitle": "0个日程 | {count}个日程",
+    "new": "新建日程",
+    "tabs": {
+      "all": "全部",
+      "morning": "早晨",
+      "afternoon": "下午",
+      "evening": "晚上",
+      "anytime": "随时"
+    },
+    "empty": {
+      "message": "暂无日程。",
+      "cta": "从模板开始 →"
+    },
+    "modal": {
+      "title": "新建日程",
+      "fields": {
+        "name": "名称",
+        "namePlaceholder": "例如：晚间放松",
+        "icon": "图标",
+        "color": "颜色",
+        "timeBlock": "时间段",
+        "days": "星期",
+        "daysHint": "留空表示每天",
+        "reminder": "提醒"
+      },
+      "cancel": "取消",
+      "create": "创建"
+    },
+    "deleteConfirm": "删除此日程？"
+  },
+  "timeBlock": {
+    "morning": "早晨",
+    "afternoon": "下午",
+    "evening": "晚上",
+    "anytime": "随时"
+  },
+  "days": {
+    "mon": "周一",
+    "tue": "周二",
+    "wed": "周三",
+    "thu": "周四",
+    "fri": "周五",
+    "sat": "周六",
+    "sun": "周日"
+  },
+  "templates": {
+    "title": "模板",
+    "subtitle": "使用精选日程包快速开始",
+    "meta": {
+      "steps": "{n}步",
+      "min": "{n}分钟"
+    },
+    "categories": {
+      "all": "全部",
+      "lifestyle": "生活方式",
+      "beauty": "美妆",
+      "fitness": "健身",
+      "productivity": "效率",
+      "home": "居家",
+      "wellbeing": "健康"
+    },
+    "items": {
+      "morningPower": {
+        "name": "晨间活力",
+        "description": "以能量和意图开启每一天。",
+        "steps": {
+          "water": "喝水（500ml）",
+          "stretch": "晨间拉伸",
+          "shower": "冷水澡",
+          "journal": "日记 — 3件感恩的事",
+          "goals": "回顾今日目标"
+        }
+      },
+      "glowUpSkincare": {
+        "name": "焕颜护肤",
+        "description": "完整的早晚护肤仪式。",
+        "steps": {
+          "cleanser": "洁面",
+          "toner": "化妆水或精华水",
+          "serum": "精华液（维C / 烟酰胺）",
+          "eyeCream": "眼霜",
+          "moisturizer": "保湿乳",
+          "spf": "防晒（仅早上）"
+        }
+      },
+      "athleteMode": {
+        "name": "运动模式",
+        "description": "系统化训练 + 恢复方案。",
+        "steps": {
+          "warmup": "动态热身",
+          "training": "主训练",
+          "cooldown": "放松拉伸",
+          "hydration": "补水记录",
+          "nutrition": "训练后营养补充"
+        }
+      },
+      "deepWork": {
+        "name": "深度工作",
+        "description": "进入专注、无干扰的状态。",
+        "steps": {
+          "clear": "整理桌面 & 关闭通知",
+          "priority": "设定今日最重要任务",
+          "focus1": "专注块 #1（25分钟）",
+          "break": "短暂休息",
+          "focus2": "专注块 #2（25分钟）"
+        }
+      },
+      "eveningWindDown": {
+        "name": "夜间放松",
+        "description": "为身心准备高质量的睡眠。",
+        "steps": {
+          "noScreens": "睡前30分钟不看屏幕",
+          "skincare": "晚间护肤",
+          "journal": "日记 — 今日3件收获",
+          "read": "阅读或冥想",
+          "intention": "设定明日意图"
+        }
+      },
+      "cleanSpace": {
+        "name": "整洁空间",
+        "description": "保持环境整洁有序。",
+        "steps": {
+          "bed": "整理床铺 & 收拾卧室",
+          "surfaces": "擦拭台面",
+          "vacuum": "吸尘",
+          "bins": "清倒垃圾",
+          "kitchen": "整理厨房"
+        }
+      },
+      "entrepreneurPack": {
+        "name": "创业者套装",
+        "description": "高效创业者的每日习惯。",
+        "steps": {
+          "metrics": "查看数据仪表板",
+          "tasks": "今日三大任务",
+          "inbox": "收件箱清零（20分钟）",
+          "outreach": "一次社交或拓展行动",
+          "eod": "收工回顾仪式"
+        }
+      },
+      "mindfulness": {
+        "name": "正念冥想",
+        "description": "建立每日冥想与心理卫生习惯。",
+        "steps": {
+          "breathwork": "呼吸练习（4-7-8模式）",
+          "meditation": "冥想练习",
+          "gratitude": "感恩 — 3件事",
+          "intention": "设定意图"
+        }
+      }
+    }
+  },
+  "stats": {
+    "title": "统计",
+    "subtitle": "一目了然的坚持记录",
+    "cards": {
+      "bestStreak": "最佳连续",
+      "activeRoutines": "活跃日程",
+      "totalCompletions": "总完成次数",
+      "totalSteps": "总步骤数"
+    },
+    "sections": {
+      "streakBoard": "连续排行",
+      "history": "完成历史",
+      "last63": "最近63天"
+    },
+    "streak": {
+      "day": "天",
+      "days": "天"
+    }
+  },
+  "onboarding": {
+    "step": "{current} / {total}",
+    "back": "返回",
+    "language": {
+      "title": "请选择语言",
+      "next": "继续 →"
+    },
+    "welcome": {
+      "title": "欢迎使用 Routify",
+      "subtitle": "从一个日程开始，养成更好的习惯。",
+      "nameLabel": "您叫什么名字？",
+      "namePlaceholder": "输入您的名字",
+      "next": "开始 →"
+    },
+    "goals": {
+      "title": "您的目标是什么？",
+      "subtitle": "选择所有适合您的",
+      "next": "继续 →",
+      "items": {
+        "morning_routine": "晨间日程",
+        "fitness": "健身运动",
+        "skincare": "护肤",
+        "productivity": "深度工作",
+        "sleep": "改善睡眠",
+        "mindfulness": "正念"
+      }
+    },
+    "schedule": {
+      "title": "您什么时候最精力充沛？",
+      "subtitle": "我们将为您安排相应的时间块",
+      "next": "继续 →",
+      "options": {
+        "morning_person": {
+          "label": "早起型",
+          "desc": "8点前起床，上午精力最旺"
+        },
+        "balanced": {
+          "label": "均衡型",
+          "desc": "早晨和晚间习惯的组合"
+        },
+        "night_owl": {
+          "label": "夜猫型",
+          "desc": "中午后达到巅峰，偏晚入睡"
+        }
+      }
+    },
+    "ready": {
+      "title": "准备就绪",
+      "subtitle": "您的专属追踪器已准备好。",
+      "cta": "开始追踪"
+    }
+  },
+  "breathing": {
+    "title": "呼吸",
+    "subtitle": "专注于您的呼吸",
+    "technique": "4-7-8 呼吸法",
+    "start": "开始",
+    "pause": "暂停",
+    "resume": "继续",
+    "reset": "重置",
+    "phases": {
+      "inhale": "吸气",
+      "hold": "屏住",
+      "exhale": "呼气",
+      "rest": "休息"
+    },
+    "cycles": "0次 | 1次 | {n}次",
+    "done": "练习完成"
+  },
+  "habitLibrary": {
+    "title": "习惯库",
+    "subtitle": "为日程添加习惯",
+    "close": "关闭",
+    "add": "添加",
+    "categories": {
+      "health": "健康",
+      "mindfulness": "正念",
+      "productivity": "效率",
+      "fitness": "健身",
+      "sleep": "睡眠",
+      "beauty": "美妆"
+    }
+  },
+  "card": {
+    "expand": "展开",
+    "collapse": "收起",
+    "complete": "完成！",
+    "addHabit": "添加习惯"
+  }
+}

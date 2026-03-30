@@ -1,0 +1,298 @@
+{
+  "sidebar": {
+    "nav": {
+      "today": "오늘",
+      "routines": "루틴",
+      "templates": "템플릿",
+      "stats": "통계",
+      "breathe": "호흡"
+    },
+    "progress": { "label": "오늘" },
+    "streak": { "label": "일 연속" }
+  },
+  "today": {
+    "greeting": {
+      "morning": "좋은 아침이에요",
+      "afternoon": "안녕하세요",
+      "evening": "좋은 저녁이에요"
+    },
+    "title": "오늘",
+    "progress": {
+      "label": "오늘의 진행상황",
+      "done": "오늘 모두 완료!"
+    },
+    "blocks": {
+      "morning": "아침",
+      "afternoon": "오후",
+      "evening": "저녁",
+      "anytime": "언제든지"
+    },
+    "empty": {
+      "message": "오늘 예정된 루틴이 없어요.",
+      "cta": "템플릿 보기 →",
+      "block": "아직 없어요"
+    }
+  },
+  "routines": {
+    "title": "루틴",
+    "subtitle": "0개의 루틴 | {count}개의 루틴",
+    "new": "새 루틴",
+    "tabs": {
+      "all": "전체",
+      "morning": "아침",
+      "afternoon": "오후",
+      "evening": "저녁",
+      "anytime": "언제든지"
+    },
+    "empty": {
+      "message": "아직 루틴이 없어요.",
+      "cta": "템플릿에서 시작하기 →"
+    },
+    "modal": {
+      "title": "새 루틴",
+      "fields": {
+        "name": "이름",
+        "namePlaceholder": "예: 저녁 루틴",
+        "icon": "아이콘",
+        "color": "색상",
+        "timeBlock": "시간대",
+        "days": "요일",
+        "daysHint": "비워두면 매일",
+        "reminder": "알림"
+      },
+      "cancel": "취소",
+      "create": "만들기"
+    },
+    "deleteConfirm": "이 루틴을 삭제할까요?"
+  },
+  "timeBlock": {
+    "morning": "아침",
+    "afternoon": "오후",
+    "evening": "저녁",
+    "anytime": "언제든지"
+  },
+  "days": {
+    "mon": "월",
+    "tue": "화",
+    "wed": "수",
+    "thu": "목",
+    "fri": "금",
+    "sat": "토",
+    "sun": "일"
+  },
+  "templates": {
+    "title": "템플릿",
+    "subtitle": "선별된 루틴 팩으로 빠르게 시작하기",
+    "meta": {
+      "steps": "{n}단계",
+      "min": "{n}분"
+    },
+    "categories": {
+      "all": "전체",
+      "lifestyle": "라이프스타일",
+      "beauty": "뷰티",
+      "fitness": "피트니스",
+      "productivity": "생산성",
+      "home": "홈",
+      "wellbeing": "웰빙"
+    },
+    "items": {
+      "morningPower": {
+        "name": "모닝 파워",
+        "description": "에너지와 의도를 갖고 하루를 시작하세요.",
+        "steps": {
+          "water": "물 마시기 (500ml)",
+          "stretch": "아침 스트레칭",
+          "shower": "냉수 샤워",
+          "journal": "일기 — 감사 3가지",
+          "goals": "오늘의 목표 확인"
+        }
+      },
+      "glowUpSkincare": {
+        "name": "글로우업 스킨케어",
+        "description": "완전한 아침/저녁 스킨케어 루틴.",
+        "steps": {
+          "cleanser": "클렌저",
+          "toner": "토너 또는 에센스",
+          "serum": "세럼 (비타민C / 나이아신아마이드)",
+          "eyeCream": "아이크림",
+          "moisturizer": "모이스처라이저",
+          "spf": "선크림 (오전만)"
+        }
+      },
+      "athleteMode": {
+        "name": "애슬릿 모드",
+        "description": "체계적인 훈련 + 회복 프로토콜.",
+        "steps": {
+          "warmup": "동적 워밍업",
+          "training": "메인 트레이닝",
+          "cooldown": "쿨다운 스트레칭",
+          "hydration": "수분 보충 기록",
+          "nutrition": "운동 후 영양 섭취"
+        }
+      },
+      "deepWork": {
+        "name": "딥 워크",
+        "description": "집중된 방해 없는 상태로 들어가세요.",
+        "steps": {
+          "clear": "책상 정리 & 알림 끄기",
+          "priority": "오늘의 최우선 과제 설정",
+          "focus1": "집중 블록 #1 (25분)",
+          "break": "짧은 휴식",
+          "focus2": "집중 블록 #2 (25분)"
+        }
+      },
+      "eveningWindDown": {
+        "name": "저녁 마무리",
+        "description": "良質な睡眠のために身心を準備。",
+        "steps": {
+          "noScreens": "자기 30분 전 화면 금지",
+          "skincare": "저녁 스킨케어",
+          "journal": "일기 — 오늘의 성과 3가지",
+          "read": "독서 또는 명상",
+          "intention": "내일의 의도 설정"
+        }
+      },
+      "cleanSpace": {
+        "name": "깔끔한 공간",
+        "description": "환경을 차분하고 정돈되게 유지하세요.",
+        "steps": {
+          "bed": "침구 정리 & 방 청소",
+          "surfaces": "표면 닦기",
+          "vacuum": "청소기 돌리기",
+          "bins": "쓰레기 비우기",
+          "kitchen": "주방 정리"
+        }
+      },
+      "entrepreneurPack": {
+        "name": "기업가 팩",
+        "description": "고성과 창업자들의 일상 습관.",
+        "steps": {
+          "metrics": "지표 대시보드 검토",
+          "tasks": "오늘의 핵심 3가지 업무",
+          "inbox": "인박스 제로 스프린트 (20분)",
+          "outreach": "네트워킹 활동 하나",
+          "eod": "하루 마감 리뷰"
+        }
+      },
+      "mindfulness": {
+        "name": "마음챙김",
+        "description": "매일 명상과 정신 건강 실천을 쌓으세요.",
+        "steps": {
+          "breathwork": "호흡 (4-7-8 패턴)",
+          "meditation": "명상 세션",
+          "gratitude": "감사 — 3가지",
+          "intention": "의도 설정"
+        }
+      }
+    }
+  },
+  "stats": {
+    "title": "통계",
+    "subtitle": "나의 꾸준함을 한눈에",
+    "cards": {
+      "bestStreak": "최고 연속",
+      "activeRoutines": "활성 루틴",
+      "totalCompletions": "총 완료",
+      "totalSteps": "총 단계"
+    },
+    "sections": {
+      "streakBoard": "연속 보드",
+      "history": "완료 기록",
+      "last63": "지난 63일"
+    },
+    "streak": {
+      "day": "일",
+      "days": "일"
+    }
+  },
+  "onboarding": {
+    "step": "{current} / {total}",
+    "back": "뒤로",
+    "language": {
+      "title": "언어를 선택해주세요",
+      "next": "계속 →"
+    },
+    "welcome": {
+      "title": "Routify에 오신 것을 환영합니다",
+      "subtitle": "하나의 루틴으로 더 나은 습관을 만드세요.",
+      "nameLabel": "이름이 무엇인가요?",
+      "namePlaceholder": "이름을 입력하세요",
+      "next": "시작하기 →"
+    },
+    "goals": {
+      "title": "목표가 무엇인가요?",
+      "subtitle": "해당하는 것을 모두 선택하세요",
+      "next": "계속 →",
+      "items": {
+        "morning_routine": "아침 루틴",
+        "fitness": "운동",
+        "skincare": "스킨케어",
+        "productivity": "집중 작업",
+        "sleep": "수면 개선",
+        "mindfulness": "마음챙김"
+      }
+    },
+    "schedule": {
+      "title": "언제 가장 활발한가요?",
+      "subtitle": "그에 맞게 시간 블록을 정리해 드릴게요",
+      "next": "계속 →",
+      "options": {
+        "morning_person": {
+          "label": "아침형",
+          "desc": "오전 8시 전 기상, 오전에 에너지 최고"
+        },
+        "balanced": {
+          "label": "균형형",
+          "desc": "아침과 저녁 습관의 조합"
+        },
+        "night_owl": {
+          "label": "저녁형",
+          "desc": "정오 이후 최고 활동, 늦게 자는 편"
+        }
+      }
+    },
+    "ready": {
+      "title": "준비됐어요",
+      "subtitle": "맞춤형 트래커가 준비되었습니다.",
+      "cta": "시작하기"
+    }
+  },
+  "breathing": {
+    "title": "호흡",
+    "subtitle": "잠시 호흡에 집중해보세요",
+    "technique": "4-7-8 호흡법",
+    "start": "시작",
+    "pause": "일시정지",
+    "resume": "재개",
+    "reset": "초기화",
+    "phases": {
+      "inhale": "들이쉬기",
+      "hold": "참기",
+      "exhale": "내쉬기",
+      "rest": "쉬기"
+    },
+    "cycles": "0회 | 1회 | {n}회",
+    "done": "세션 완료"
+  },
+  "habitLibrary": {
+    "title": "습관 라이브러리",
+    "subtitle": "루틴에 습관 추가하기",
+    "close": "닫기",
+    "add": "추가",
+    "categories": {
+      "health": "건강",
+      "mindfulness": "마음챙김",
+      "productivity": "생산성",
+      "fitness": "운동",
+      "sleep": "수면",
+      "beauty": "뷰티"
+    }
+  },
+  "card": {
+    "expand": "펼치기",
+    "collapse": "닫기",
+    "complete": "완료!",
+    "addHabit": "습관 추가"
+  }
+}
