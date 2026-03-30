@@ -13,16 +13,22 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import AppSidebar from '@/components/layout/AppSidebar.vue';
 import { useNotifications } from '@/composables/useNotifications';
 import { useUiStore } from '@/stores/ui.store';
+import { useTray } from '@/composables/useTray';
 
 const route = useRoute();
+const router = useRouter();
 const ui = useUiStore();
 const isFullscreen = computed(() => !!route.meta.fullscreen);
 
 useNotifications();
+useTray();
+
+// Expose navigation for Tauri tray menu → window.__routify_navigate('/focus/:id')
+(window as Record<string, unknown>).__routify_navigate = (path: string) => router.push(path);
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape' && ui.deepFocus) {
