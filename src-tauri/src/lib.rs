@@ -59,6 +59,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_sql::Builder::default().build())
         .setup(|app| {
             let initial_menu = build_tray_menu(app.handle(), &[])?;
 

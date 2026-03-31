@@ -1,5 +1,15 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
+import {
+  isTauri,
+  initDatabase,
+  loadRoutines,
+  saveRoutine,
+  saveAllRoutines,
+  deleteRoutineFromDb,
+  getSetting,
+  setSetting,
+} from '@/services/database.service';
 
 export type TTimeBlock = 'morning' | 'afternoon' | 'evening' | 'anytime';
 export type TDayOfWeek = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
@@ -127,9 +137,9 @@ const DEFAULT_ROUTINES: IRoutine[] = [
 ];
 
 export const useRoutineStore = defineStore('routines', () => {
-  const routines = ref<IRoutine[]>(loadFromStorage());
+  const routines = ref<IRoutine[]>(_loadFromStorage());
 
-  function loadFromStorage(): IRoutine[] {
+  function _loadFromStorage(): IRoutine[] {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return DEFAULT_ROUTINES;
@@ -140,8 +150,41 @@ export const useRoutineStore = defineStore('routines', () => {
     }
   }
 
-  function save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(routines.value));
+  /**
+   * Must be called once before the app mounts.
+   * - In Tauri: initialises SQLite, migrates from localStorage on first run,
+   *   then loads persisted data from the DB.
+   * - In browser: no-op (localStorage already loaded above).
+   */
+  async function init(): Promise<void> {
+    const dbReady = await initDatabase();
+    if (!dbReady) return; // browser / non-Tauri
+
+    const migrated = await getSetting('ls_migrated_v1');
+    if (!migrated) {
+      // First launch with SQLite — push current localStorage data into DB
+      await saveAllRoutines(routines.value);
+      await setSetting('ls_migrated_v1', 'true');
+      localStorage.removeItem(STORAGE_KEY);
+    } else {
+      const dbRoutines = await loadRoutines();
+      if (dbRoutines !== null) {
+        routines.value = dbRoutines;
+      }
+    }
+  }
+
+  function save(changedRoutine?: IRoutine) {
+    if (!isTauri) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(routines.value));
+      return;
+    }
+    // Fire-and-forget: persist the changed routine (or all) to SQLite
+    if (changedRoutine) {
+      void saveRoutine(changedRoutine);
+    } else {
+      void saveAllRoutines(routines.value);
+    }
   }
 
   // Returns routines scheduled for the given date (defaults to today)
@@ -190,7 +233,7 @@ export const useRoutineStore = defineStore('routines', () => {
         routine.streak = computeStreak(routine.completedDates);
       }
     }
-    save();
+    save(routine);
   }
 
   function computeStreak(dates: string[]): number {
@@ -208,14 +251,15 @@ export const useRoutineStore = defineStore('routines', () => {
   }
 
   function addRoutine(data: Omit<IRoutine, 'id' | 'createdAt' | 'streak' | 'completedDates'>) {
-    routines.value.push({
+    const routine: IRoutine = {
       ...data,
       id: generateId(),
       createdAt: todayStr(),
       streak: 0,
       completedDates: [],
-    });
-    save();
+    };
+    routines.value.push(routine);
+    save(routine);
   }
 
   function addItemToRoutine(
@@ -225,14 +269,14 @@ export const useRoutineStore = defineStore('routines', () => {
     const routine = routines.value.find((r) => r.id === routineId);
     if (!routine) return;
     routine.items.push({ ...item, id: generateId(), completed: false });
-    save();
+    save(routine);
   }
 
   function updateRoutine(id: string, patch: Partial<Omit<IRoutine, 'id' | 'createdAt'>>) {
     const routine = routines.value.find((r) => r.id === id);
     if (!routine) return;
     Object.assign(routine, patch);
-    save();
+    save(routine);
   }
 
   function reorderItems(routineId: string, from: number, to: number) {
@@ -242,7 +286,7 @@ export const useRoutineStore = defineStore('routines', () => {
     const [moved] = items.splice(from, 1);
     items.splice(to, 0, moved);
     routine.items = items;
-    save();
+    save(routine);
   }
 
   function updateItem(
@@ -255,19 +299,20 @@ export const useRoutineStore = defineStore('routines', () => {
     const item = routine.items.find((i) => i.id === itemId);
     if (!item) return;
     Object.assign(item, patch);
-    save();
+    save(routine);
   }
 
   function deleteItem(routineId: string, itemId: string) {
     const routine = routines.value.find((r) => r.id === routineId);
     if (!routine) return;
     routine.items = routine.items.filter((i) => i.id !== itemId);
-    save();
+    save(routine);
   }
 
   function deleteRoutine(id: string) {
+    if (isTauri) void deleteRoutineFromDb(id);
     routines.value = routines.value.filter((r) => r.id !== id);
-    save();
+    if (!isTauri) localStorage.setItem(STORAGE_KEY, JSON.stringify(routines.value));
   }
 
   function resetTodayItems() {
@@ -286,6 +331,7 @@ export const useRoutineStore = defineStore('routines', () => {
     routinesForToday,
     totalCompleted,
     totalItems,
+    init,
     toggleItem,
     addRoutine,
     addItemToRoutine,

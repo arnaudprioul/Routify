@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { isTauri, initDatabase, getSetting, setSetting } from '@/services/database.service';
 
 export type TOnboardingGoal =
   | 'morning_routine'
@@ -28,9 +29,9 @@ const DEFAULT_STATE: IOnboardingState = {
 };
 
 export const useOnboardingStore = defineStore('onboarding', () => {
-  const state = ref<IOnboardingState>(loadFromStorage());
+  const state = ref<IOnboardingState>(_loadFromStorage());
 
-  function loadFromStorage(): IOnboardingState {
+  function _loadFromStorage(): IOnboardingState {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return { ...DEFAULT_STATE };
@@ -40,19 +41,47 @@ export const useOnboardingStore = defineStore('onboarding', () => {
     }
   }
 
-  function save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.value));
+  /** Call once before app mount to hydrate from SQLite when available. */
+  async function init(): Promise<void> {
+    const dbReady = await initDatabase();
+    if (!dbReady) return;
+
+    const raw = await getSetting('onboarding');
+    if (raw) {
+      try {
+        state.value = { ...DEFAULT_STATE, ...JSON.parse(raw) };
+      } catch { /* keep existing */ }
+    } else {
+      // Migrate from localStorage on first SQLite run
+      const lsRaw = localStorage.getItem(STORAGE_KEY);
+      if (lsRaw) {
+        await setSetting('onboarding', lsRaw);
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
+  }
+
+  function _save() {
+    if (!isTauri) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.value));
+      return;
+    }
+    void setSetting('onboarding', JSON.stringify(state.value));
   }
 
   function completeOnboarding(data: Omit<IOnboardingState, 'completed'>) {
     state.value = { ...data, completed: true };
-    save();
+    _save();
   }
 
   function reset() {
     state.value = { ...DEFAULT_STATE };
-    localStorage.removeItem(STORAGE_KEY);
+    if (isTauri) {
+      void setSetting('onboarding', JSON.stringify(DEFAULT_STATE));
+    } else {
+      localStorage.removeItem(STORAGE_KEY);
+    }
   }
 
-  return { state, completeOnboarding, reset };
+  return { state, init, completeOnboarding, reset };
 });

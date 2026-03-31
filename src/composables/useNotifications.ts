@@ -1,5 +1,6 @@
 import { onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
+import type { PluginListener } from '@tauri-apps/api/core';
 import {
   isPermissionGranted,
   requestPermission,
@@ -22,9 +23,9 @@ export function useNotifications() {
   const store = useRoutineStore();
   const router = useRouter();
   let intervalId: ReturnType<typeof setInterval> | null = null;
-  let actionUnlisten: (() => void) | null = null;
+  let actionListener: PluginListener | null = null;
 
-  // Key: "routineId:YYYY-MM-DD" — prevents double-notifying in the same minute
+  // Key: "routineId:YYYY-MM-DD:HH:MM" — prevents double-notifying
   const notifiedKeys = new Set<string>();
 
   // Session-only reminder overrides: routineId → 'HH:MM'
@@ -65,7 +66,7 @@ export function useNotifications() {
       notifiedKeys.add(key);
 
       const remaining = routine.items.filter((i) => !i.completed).length;
-      await sendNotification({
+      sendNotification({
         title: `${routine.icon} ${routine.name}`,
         body:
           remaining === routine.items.length
@@ -77,24 +78,28 @@ export function useNotifications() {
     }
   }
 
-  async function setupActionListener() {
-    const unlisten = await onAction(({ notification, actionId }) => {
-      const routineId = notification.extra?.routineId as string | undefined;
+  async function setupActionListener(): Promise<PluginListener> {
+    return onAction((payload) => {
+      // The plugin passes extra notification context; access via cast
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data = payload as any;
+      const routineId = (data.extra?.routineId ?? data.notification?.extra?.routineId) as
+        | string
+        | undefined;
+      const actionId = (data.actionId ?? data.id) as string | undefined;
+
       if (!routineId) return;
 
       switch (actionId) {
         case 'start':
-          router.push(`/focus/${routineId}`);
+          void router.push(`/focus/${routineId}`);
           break;
 
         case 'done': {
           const routine = store.routines.find((r) => r.id === routineId);
           if (routine) {
-            // Mark all items as completed via the store
             for (const item of routine.items) {
-              if (!item.completed) {
-                store.toggleItem(routineId, item.id);
-              }
+              if (!item.completed) store.toggleItem(routineId, item.id);
             }
           }
           break;
@@ -110,7 +115,6 @@ export function useNotifications() {
         }
       }
     });
-    return unlisten;
   }
 
   async function init() {
@@ -132,15 +136,15 @@ export function useNotifications() {
       },
     ]);
 
-    actionUnlisten = await setupActionListener();
+    actionListener = await setupActionListener();
 
     await checkAndNotify();
-    intervalId = setInterval(checkAndNotify, 60_000);
+    intervalId = setInterval(() => void checkAndNotify(), 60_000);
   }
 
   onMounted(() => void init());
   onUnmounted(() => {
     if (intervalId !== null) clearInterval(intervalId);
-    if (actionUnlisten !== null) actionUnlisten();
+    if (actionListener !== null) void actionListener.unregister();
   });
 }
