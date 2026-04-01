@@ -348,6 +348,15 @@
     "notFound": "Routine not found.",
     "backToToday": "Back to Today"
   },
+  "identity": {
+    "morning_person": "Morning person",
+    "night_owl": "Night owl",
+    "athlete": "Athlete",
+    "focused": "Focused",
+    "self_care": "Self-care",
+    "balanced": "Balanced",
+    "consistent": "Consistent"
+  },
   "profiles": {
     "all": "All",
     "new": "New profile",

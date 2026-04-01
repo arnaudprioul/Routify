@@ -6,6 +6,18 @@
       <div class="brand-text">
         <span class="brand-name">Routify</span>
         <span v-if="userName" class="brand-user">{{ userName }}</span>
+        <Transition name="identity-fade">
+          <div v-if="identities.length" class="identity-badges">
+            <span
+              v-for="key in identities"
+              :key="key"
+              class="identity-badge"
+              :title="t(`identity.${key}`)"
+            >
+              {{ IDENTITY_ICONS[key] }} {{ t(`identity.${key}`) }}
+            </span>
+          </div>
+        </Transition>
       </div>
     </div>
 
@@ -105,6 +117,7 @@ import { useProfilesStore, type IProfile } from '@/stores/profiles.store';
 import ProgressRing from '@/components/ui/ProgressRing.vue';
 import LangSwitcher from '@/components/ui/LangSwitcher.vue';
 import ProfileModal from '@/components/ui/ProfileModal.vue';
+import { useIdentity, IDENTITY_ICONS } from '@/composables/useIdentity';
 
 const { t } = useI18n();
 const store = useRoutineStore();
@@ -112,6 +125,7 @@ const onboarding = useOnboardingStore();
 const ui = useUiStore();
 const profilesStore = useProfilesStore();
 
+const { identities } = useIdentity();
 const showModal = ref(false);
 const editProfile = ref<IProfile | undefined>(undefined);
 
@@ -220,6 +234,31 @@ const navItems = computed(() => [
 .brand-user {
   font-size: var(--text-xs);
   color: var(--text-muted);
+}
+
+.identity-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 2px;
+}
+
+.identity-badge {
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.identity-fade-enter-active {
+  transition: opacity var(--duration-slow) var(--ease-out),
+              transform var(--duration-slow) var(--ease-out);
+}
+.identity-fade-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
 }
 
 .sidebar-progress {

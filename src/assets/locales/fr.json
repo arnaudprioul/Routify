@@ -348,6 +348,15 @@
     "notFound": "Routine introuvable.",
     "backToToday": "Retour à Aujourd'hui"
   },
+  "identity": {
+    "morning_person": "Lève-tôt",
+    "night_owl": "Couche-tard",
+    "athlete": "Athlète",
+    "focused": "Concentré",
+    "self_care": "Soin de soi",
+    "balanced": "Équilibré",
+    "consistent": "Régulier"
+  },
   "profiles": {
     "all": "Tous",
     "new": "Nouveau profil",
