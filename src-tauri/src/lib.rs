@@ -3,6 +3,7 @@ use tauri::{
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
     AppHandle, Manager,
 };
+use std::path::PathBuf;
 
 #[derive(serde::Deserialize, Clone)]
 pub struct TrayRoutine {
@@ -44,6 +45,40 @@ fn build_tray_menu(app: &AppHandle, routines: &[TrayRoutine]) -> tauri::Result<M
 
     Menu::with_items(app, &refs)
 }
+
+// ---------------------------------------------------------------------------
+// iCloud sync commands
+// ---------------------------------------------------------------------------
+
+fn icloud_dir() -> Option<PathBuf> {
+    let home = std::env::var("HOME").ok()?;
+    Some(PathBuf::from(home)
+        .join("Library/Mobile Documents/com~apple~CloudDocs/Routify"))
+}
+
+#[tauri::command]
+fn icloud_export(data: String) -> Result<(), String> {
+    let dir = icloud_dir().ok_or("iCloud Drive not found")?;
+    std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+    std::fs::write(dir.join("routify-backup.json"), data).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn icloud_import() -> Result<String, String> {
+    let dir = icloud_dir().ok_or("iCloud Drive not found")?;
+    std::fs::read_to_string(dir.join("routify-backup.json")).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn icloud_backup_exists() -> bool {
+    icloud_dir()
+        .map(|d| d.join("routify-backup.json").exists())
+        .unwrap_or(false)
+}
+
+// ---------------------------------------------------------------------------
+// Tray menu command
+// ---------------------------------------------------------------------------
 
 #[tauri::command]
 fn update_tray_menu(app: AppHandle, routines: Vec<TrayRoutine>) -> Result<(), String> {
@@ -116,7 +151,12 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![update_tray_menu])
+        .invoke_handler(tauri::generate_handler![
+            update_tray_menu,
+            icloud_export,
+            icloud_import,
+            icloud_backup_exists,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

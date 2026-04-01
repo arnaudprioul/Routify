@@ -348,6 +348,24 @@
     "notFound": "Routine introuvable.",
     "backToToday": "Retour à Aujourd'hui"
   },
+  "data": {
+    "title": "Données & Sync",
+    "local": {
+      "title": "Exporter / Importer",
+      "desc": "Sauvegardez vos routines en JSON ou restaurez depuis un export précédent.",
+      "export": "Exporter JSON",
+      "import": "Importer JSON",
+      "imported": "{n} nouvelle(s) routine(s) ajoutée(s)"
+    },
+    "icloud": {
+      "title": "Sync iCloud",
+      "desc": "Stockez une sauvegarde dans iCloud Drive pour synchroniser automatiquement entre vos Macs.",
+      "backup": "Sauvegarder sur iCloud",
+      "restore": "Restaurer depuis iCloud",
+      "backupDone": "Sauvegarde envoyée sur iCloud.",
+      "restored": "{n} nouvelle(s) routine(s) restaurée(s) depuis iCloud."
+    }
+  },
   "identity": {
     "morning_person": "Lève-tôt",
     "night_owl": "Couche-tard",

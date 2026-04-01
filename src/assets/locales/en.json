@@ -348,6 +348,24 @@
     "notFound": "Routine not found.",
     "backToToday": "Back to Today"
   },
+  "data": {
+    "title": "Data & Sync",
+    "local": {
+      "title": "Export / Import",
+      "desc": "Back up your routines as a JSON file or restore from a previous export.",
+      "export": "Export JSON",
+      "import": "Import JSON",
+      "imported": "Added {n} new routine(s)"
+    },
+    "icloud": {
+      "title": "iCloud Sync",
+      "desc": "Store a backup in iCloud Drive so it syncs across your Macs automatically.",
+      "backup": "Back up to iCloud",
+      "restore": "Restore from iCloud",
+      "backupDone": "Backup saved to iCloud.",
+      "restored": "Restored {n} new routine(s) from iCloud."
+    }
+  },
   "identity": {
     "morning_person": "Morning person",
     "night_owl": "Night owl",

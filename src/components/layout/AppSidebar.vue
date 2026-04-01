@@ -89,6 +89,18 @@
         </svg>
         {{ t('sidebar.deepFocus') }}
       </button>
+      <button
+        class="btn-deep-focus"
+        :aria-label="t('data.title')"
+        @click="showDataModal = true"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        {{ t('data.title') }}
+      </button>
       <LangSwitcher variant="sidebar" />
       <div class="footer-divider" />
       <div class="streak-row">
@@ -105,6 +117,9 @@
     :edit-profile="editProfile"
     @close="showModal = false; editProfile = undefined"
   />
+
+  <!-- Data / sync modal -->
+  <DataModal v-if="showDataModal" @close="showDataModal = false" />
 </template>
 
 <script setup lang="ts">
@@ -117,6 +132,7 @@ import { useProfilesStore, type IProfile } from '@/stores/profiles.store';
 import ProgressRing from '@/components/ui/ProgressRing.vue';
 import LangSwitcher from '@/components/ui/LangSwitcher.vue';
 import ProfileModal from '@/components/ui/ProfileModal.vue';
+import DataModal from '@/components/ui/DataModal.vue';
 import { useIdentity, IDENTITY_ICONS } from '@/composables/useIdentity';
 
 const { t } = useI18n();
@@ -127,6 +143,7 @@ const profilesStore = useProfilesStore();
 
 const { identities } = useIdentity();
 const showModal = ref(false);
+const showDataModal = ref(false);
 const editProfile = ref<IProfile | undefined>(undefined);
 
 function onProfileClick(id: string) {
