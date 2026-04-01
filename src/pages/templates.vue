@@ -233,6 +233,7 @@ function addTemplate(tpl: ITemplateDef) {
     color: tpl.color,
     timeBlock: tpl.timeBlock,
     days: tpl.days ?? [],
+    recurrence: 'daily',
     items: tpl.stepKeys.map((s) => ({
       id: generateId(),
       label: t(`templates.items.${tpl.id}.steps.${s.key}`),

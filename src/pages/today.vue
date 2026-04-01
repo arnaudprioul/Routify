@@ -32,11 +32,22 @@
       </Transition>
     </div>
 
+    <!-- Recurrence tabs -->
+    <div class="recurrence-tabs">
+      <button
+        v-for="tab in RECURRENCE_TABS"
+        :key="tab.key"
+        class="rec-tab"
+        :class="{ active: activeTab === tab.key }"
+        @click="activeTab = tab.key"
+      >{{ t(tab.label) }}</button>
+    </div>
+
     <!-- Time block sections -->
     <div v-if="hasRoutines" class="blocks">
       <section
         v-for="block in BLOCKS"
-        v-show="routinesByBlock[block.key].length > 0"
+        v-show="activeBlockMap[block.key].length > 0"
         :key="block.key"
         class="block-section"
         :style="{ '--block-color': `var(--block-${block.key})`, '--block-bg': `var(--block-${block.key}-bg)` }"
@@ -46,11 +57,11 @@
             <span class="block-dot" />
             <span class="block-name">{{ t(`today.blocks.${block.key}`) }}</span>
           </div>
-          <span class="block-count">{{ routinesByBlock[block.key].length }}</span>
+          <span class="block-count">{{ activeBlockMap[block.key].length }}</span>
         </div>
         <div class="block-cards">
           <RoutineCard
-            v-for="routine in routinesByBlock[block.key]"
+            v-for="routine in activeBlockMap[block.key]"
             :key="routine.id"
             :routine="routine"
             :default-expanded="block.key === currentBlock"
@@ -85,7 +96,7 @@ import { useRoutineStore } from '@/stores/routines.store';
 import { useOnboardingStore } from '@/stores/onboarding.store';
 import RoutineCard from '@/components/routines/RoutineCard.vue';
 import HabitLibrary from '@/components/ui/HabitLibrary.vue';
-import type { TTimeBlock } from '@/stores/routines.store';
+import type { TTimeBlock, TRecurrence } from '@/stores/routines.store';
 
 const { t } = useI18n();
 const router = useRouter();
@@ -102,13 +113,28 @@ const BLOCKS: { key: TTimeBlock }[] = [
   { key: 'anytime' },
 ];
 
+type TTabKey = 'all' | TRecurrence;
+const RECURRENCE_TABS: { key: TTabKey; label: string }[] = [
+  { key: 'all',     label: 'today.tabs.all' },
+  { key: 'daily',   label: 'today.tabs.daily' },
+  { key: 'weekly',  label: 'today.tabs.weekly' },
+  { key: 'monthly', label: 'today.tabs.monthly' },
+];
+
+const activeTab = ref<TTabKey>('all');
+
+const activeBlockMap = computed(() =>
+  activeTab.value === 'all'
+    ? store.routinesByBlock
+    : store.routinesByBlockFor(activeTab.value as TRecurrence),
+);
+
 const progressPercent = computed(() =>
   store.totalItems > 0 ? Math.round((store.totalCompleted / store.totalItems) * 100) : 0,
 );
 
-const routinesByBlock = computed(() => store.routinesByBlock);
 const hasRoutines = computed(() =>
-  BLOCKS.some((b) => routinesByBlock.value[b.key].length > 0),
+  BLOCKS.some((b) => activeBlockMap.value[b.key].length > 0),
 );
 
 const now = new Date();
@@ -235,6 +261,36 @@ function startShortRoutine(routineId: string) {
   font-size: var(--text-xs);
   color: var(--success);
   text-align: right;
+}
+
+/* Recurrence tabs */
+.recurrence-tabs {
+  display: flex;
+  gap: var(--sp-1);
+}
+
+.rec-tab {
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast),
+              border-color var(--duration-fast);
+}
+
+.rec-tab:hover {
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+}
+
+.rec-tab.active {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* Blocks */

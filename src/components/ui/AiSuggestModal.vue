@@ -372,6 +372,7 @@ function addSuggestion(index: number) {
     color: s.color,
     timeBlock: s.timeBlock,
     days: s.days,
+    recurrence: 'daily',
     reminderTime: undefined,
     items: s.items.map((item) => ({
       id: Math.random().toString(36).slice(2, 10),

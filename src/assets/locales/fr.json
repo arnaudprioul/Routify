@@ -22,6 +22,12 @@
       "evening": "Bonsoir"
     },
     "title": "Aujourd'hui",
+    "tabs": {
+      "all": "Tout",
+      "daily": "Quotidien",
+      "weekly": "Hebdomadaire",
+      "monthly": "Mensuel"
+    },
     "progress": {
       "label": "Progression du jour",
       "done": "Tout est fait !"
@@ -61,6 +67,7 @@
         "icon": "Icône",
         "color": "Couleur",
         "timeBlock": "Moment de la journée",
+        "recurrence": "Récurrence",
         "days": "Jours",
         "daysHint": "Laisser vide pour tous les jours",
         "reminder": "Rappel"
@@ -71,6 +78,11 @@
       "save": "Enregistrer"
     },
     "deleteConfirm": "Supprimer cette routine ?"
+  },
+  "recurrence": {
+    "daily": "Quotidien",
+    "weekly": "Hebdomadaire",
+    "monthly": "Mensuel"
   },
   "timeBlock": {
     "morning": "Matin",

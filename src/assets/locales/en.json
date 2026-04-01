@@ -22,6 +22,12 @@
       "evening": "Good evening"
     },
     "title": "Today",
+    "tabs": {
+      "all": "All",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
     "progress": {
       "label": "Daily Progress",
       "done": "All done for today!"
@@ -61,6 +67,7 @@
         "icon": "Icon",
         "color": "Color",
         "timeBlock": "Time Block",
+        "recurrence": "Recurrence",
         "days": "Days",
         "daysHint": "Leave empty for every day",
         "reminder": "Reminder"
@@ -71,6 +78,11 @@
       "save": "Save"
     },
     "deleteConfirm": "Delete this routine?"
+  },
+  "recurrence": {
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly"
   },
   "timeBlock": {
     "morning": "Morning",

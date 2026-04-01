@@ -27,13 +27,14 @@ const DDL = [
     id            TEXT PRIMARY KEY,
     name          TEXT NOT NULL,
     icon          TEXT NOT NULL,
-    color         TEXT NOT NULL,
-    time_block    TEXT NOT NULL,
-    days          TEXT NOT NULL DEFAULT '[]',
-    reminder_time TEXT,
-    streak        INTEGER NOT NULL DEFAULT 0,
+    color           TEXT NOT NULL,
+    time_block      TEXT NOT NULL,
+    days            TEXT NOT NULL DEFAULT '[]',
+    recurrence      TEXT NOT NULL DEFAULT 'daily',
+    reminder_time   TEXT,
+    streak          INTEGER NOT NULL DEFAULT 0,
     completed_dates TEXT NOT NULL DEFAULT '[]',
-    created_at    TEXT NOT NULL
+    created_at      TEXT NOT NULL
   )`,
   `CREATE TABLE IF NOT EXISTS routine_items (
     id           TEXT PRIMARY KEY,
@@ -57,6 +58,7 @@ interface IRoutineRow {
   name: string;
   icon: string;
   color: string;
+  recurrence: string;
   time_block: string;
   days: string;
   reminder_time: string | null;
@@ -78,13 +80,17 @@ interface IItemRow {
 // Public API
 // ---------------------------------------------------------------------------
 
-/** Create tables if they don't exist. Returns false in browser mode. */
+/** Create tables if they don't exist, and run incremental schema migrations. Returns false in browser mode. */
 export async function initDatabase(): Promise<boolean> {
   const db = await getDb();
   if (!db) return false;
   for (const sql of DDL) {
     await db.execute(sql);
   }
+  // Schema migration v2: add recurrence column to existing databases
+  try {
+    await db.execute("ALTER TABLE routines ADD COLUMN recurrence TEXT NOT NULL DEFAULT 'daily'");
+  } catch { /* column already exists — safe to ignore */ }
   return true;
 }
 
@@ -121,6 +127,7 @@ export async function loadRoutines(): Promise<IRoutine[] | null> {
     color: row.color,
     timeBlock: row.time_block as IRoutine['timeBlock'],
     days: JSON.parse(row.days) as IRoutine['days'],
+    recurrence: (row.recurrence ?? 'daily') as IRoutine['recurrence'],
     reminderTime: row.reminder_time ?? undefined,
     streak: row.streak,
     completedDates: JSON.parse(row.completed_dates) as string[],
@@ -136,8 +143,8 @@ export async function saveRoutine(routine: IRoutine): Promise<void> {
 
   await db.execute(
     `INSERT OR REPLACE INTO routines
-       (id, name, icon, color, time_block, days, reminder_time, streak, completed_dates, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       (id, name, icon, color, time_block, days, recurrence, reminder_time, streak, completed_dates, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       routine.id,
       routine.name,
@@ -145,6 +152,7 @@ export async function saveRoutine(routine: IRoutine): Promise<void> {
       routine.color,
       routine.timeBlock,
       JSON.stringify(routine.days),
+      routine.recurrence ?? 'daily',
       routine.reminderTime ?? null,
       routine.streak,
       JSON.stringify(routine.completedDates),

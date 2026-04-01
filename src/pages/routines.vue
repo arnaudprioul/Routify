@@ -96,8 +96,16 @@
                     <option value="anytime">{{ t('timeBlock.anytime') }}</option>
                   </select>
                 </div>
+                <div class="field">
+                  <label>{{ t('routines.modal.fields.recurrence') }}</label>
+                  <select v-model="editForm.recurrence">
+                    <option value="daily">{{ t('recurrence.daily') }}</option>
+                    <option value="weekly">{{ t('recurrence.weekly') }}</option>
+                    <option value="monthly">{{ t('recurrence.monthly') }}</option>
+                  </select>
+                </div>
               </div>
-              <div class="field">
+              <div v-if="editForm.recurrence === 'daily'" class="field">
                 <label>{{ t('routines.modal.fields.days') }}</label>
                 <p class="field-hint">{{ t('routines.modal.fields.daysHint') }}</p>
                 <div class="days-row">
@@ -157,7 +165,17 @@
                   </select>
                 </div>
               </div>
-              <div class="field">
+              <div class="field-row">
+                <div class="field">
+                  <label>{{ t('routines.modal.fields.recurrence') }}</label>
+                  <select v-model="form.recurrence">
+                    <option value="daily">{{ t('recurrence.daily') }}</option>
+                    <option value="weekly">{{ t('recurrence.weekly') }}</option>
+                    <option value="monthly">{{ t('recurrence.monthly') }}</option>
+                  </select>
+                </div>
+              </div>
+              <div v-if="form.recurrence === 'daily'" class="field">
                 <label>{{ t('routines.modal.fields.days') }}</label>
                 <p class="field-hint">{{ t('routines.modal.fields.daysHint') }}</p>
                 <div class="days-row">
@@ -190,7 +208,7 @@ import { ref, computed, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useRoutineStore } from '@/stores/routines.store';
-import type { TTimeBlock, TDayOfWeek, IRoutine } from '@/stores/routines.store';
+import type { TTimeBlock, TDayOfWeek, TRecurrence, IRoutine } from '@/stores/routines.store';
 import RoutineCard from '@/components/routines/RoutineCard.vue';
 import HabitLibrary from '@/components/ui/HabitLibrary.vue';
 import AiSuggestModal from '@/components/ui/AiSuggestModal.vue';
@@ -208,6 +226,7 @@ const editForm = reactive({
   color: '#14b8a6',
   timeBlock: 'morning' as TTimeBlock,
   days: [] as TDayOfWeek[],
+  recurrence: 'daily' as TRecurrence,
   reminderTime: '' as string | undefined,
 });
 const activeTab = ref<'all' | TTimeBlock>('all');
@@ -221,6 +240,7 @@ const form = reactive({
   color: '#14b8a6',
   timeBlock: 'morning' as TTimeBlock,
   days: [] as TDayOfWeek[],
+  recurrence: 'daily' as TRecurrence,
 });
 
 const tabs = computed(() => [
@@ -250,7 +270,8 @@ function createRoutine() {
     icon: form.icon || '✦',
     color: form.color,
     timeBlock: form.timeBlock,
-    days: [...form.days],
+    days: form.recurrence === 'daily' ? [...form.days] : [],
+    recurrence: form.recurrence,
     items: [],
   });
   form.name = '';
@@ -258,6 +279,7 @@ function createRoutine() {
   form.color = '#14b8a6';
   form.timeBlock = 'morning';
   form.days = [];
+  form.recurrence = 'daily';
   showModal.value = false;
 }
 
@@ -275,6 +297,7 @@ function openEditModal(routineId: string) {
   editForm.color = routine.color;
   editForm.timeBlock = routine.timeBlock;
   editForm.days = [...routine.days];
+  editForm.recurrence = routine.recurrence ?? 'daily';
   editForm.reminderTime = routine.reminderTime ?? '';
   editingRoutineId.value = routineId;
 }
@@ -292,7 +315,8 @@ function saveEdit() {
     icon: editForm.icon || '✦',
     color: editForm.color,
     timeBlock: editForm.timeBlock,
-    days: [...editForm.days],
+    days: editForm.recurrence === 'daily' ? [...editForm.days] : [],
+    recurrence: editForm.recurrence,
     reminderTime: editForm.reminderTime || undefined,
   });
   editingRoutineId.value = null;
