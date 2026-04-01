@@ -348,6 +348,19 @@
     "notFound": "Routine introuvable.",
     "backToToday": "Retour à Aujourd'hui"
   },
+  "profiles": {
+    "all": "Tous",
+    "new": "Nouveau profil",
+    "modal": {
+      "title": "Nouveau profil",
+      "editTitle": "Modifier le profil",
+      "fields": {
+        "namePlaceholder": "ex. Semaine de travail",
+        "routines": "Routines incluses"
+      },
+      "delete": "Supprimer le profil"
+    }
+  },
   "aiSuggest": {
     "button": "Suggestion IA",
     "title": "Assistant IA",

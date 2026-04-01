@@ -18,6 +18,35 @@
       </div>
     </div>
 
+    <!-- Profile switcher -->
+    <div class="profiles-section">
+      <div class="profiles-row">
+        <button
+          class="profile-pill"
+          :class="{ active: profilesStore.activeProfileId === null }"
+          @click="profilesStore.setActiveProfile(null)"
+        >{{ t('profiles.all') }}</button>
+
+        <button
+          v-for="p in profilesStore.profiles"
+          :key="p.id"
+          class="profile-pill"
+          :class="{ active: profilesStore.activeProfileId === p.id }"
+          :style="profilesStore.activeProfileId === p.id ? { borderColor: p.color, color: p.color } : {}"
+          @click="onProfileClick(p.id)"
+        >
+          <span>{{ p.icon }}</span>
+          <span>{{ p.name }}</span>
+        </button>
+
+        <button
+          class="profile-pill profile-add"
+          :aria-label="t('profiles.new')"
+          @click="showModal = true; editProfile = undefined"
+        >+</button>
+      </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="sidebar-nav">
       <RouterLink
@@ -57,21 +86,44 @@
       </div>
     </div>
   </aside>
+
+  <!-- Profile modal -->
+  <ProfileModal
+    v-if="showModal"
+    :edit-profile="editProfile"
+    @close="showModal = false; editProfile = undefined"
+  />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoutineStore } from '@/stores/routines.store';
 import { useOnboardingStore } from '@/stores/onboarding.store';
 import { useUiStore } from '@/stores/ui.store';
+import { useProfilesStore, type IProfile } from '@/stores/profiles.store';
 import ProgressRing from '@/components/ui/ProgressRing.vue';
 import LangSwitcher from '@/components/ui/LangSwitcher.vue';
+import ProfileModal from '@/components/ui/ProfileModal.vue';
 
 const { t } = useI18n();
 const store = useRoutineStore();
 const onboarding = useOnboardingStore();
 const ui = useUiStore();
+const profilesStore = useProfilesStore();
+
+const showModal = ref(false);
+const editProfile = ref<IProfile | undefined>(undefined);
+
+function onProfileClick(id: string) {
+  if (profilesStore.activeProfileId === id) {
+    // clicking active profile → open edit modal
+    editProfile.value = profilesStore.profiles.find((p) => p.id === id);
+    showModal.value = true;
+  } else {
+    profilesStore.setActiveProfile(id);
+  }
+}
 
 const userName = computed(() => onboarding.state.userName);
 const totalCompleted = computed(() => store.totalCompleted);
@@ -198,6 +250,51 @@ const navItems = computed(() => [
   font-size: var(--text-md);
   font-weight: 400;
   color: var(--text-primary);
+}
+
+/* Profiles */
+.profiles-section {
+  flex-shrink: 0;
+}
+
+.profiles-row {
+  display: flex;
+  gap: var(--sp-1);
+  flex-wrap: wrap;
+  padding: 2px 0;
+}
+
+.profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px var(--sp-2);
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: background var(--duration-fast), color var(--duration-fast),
+              border-color var(--duration-fast);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.profile-pill:hover {
+  background: var(--bg-overlay);
+  color: var(--text-secondary);
+}
+
+.profile-pill.active {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.profile-add {
+  font-size: var(--text-md);
+  line-height: 1;
+  padding: 2px 6px;
 }
 
 .sidebar-nav {

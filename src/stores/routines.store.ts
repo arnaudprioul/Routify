@@ -10,6 +10,7 @@ import {
   getSetting,
   setSetting,
 } from '@/services/database.service';
+import { useProfilesStore } from '@/stores/profiles.store';
 
 export type TTimeBlock = 'morning' | 'afternoon' | 'evening' | 'anytime';
 export type TDayOfWeek = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
@@ -138,6 +139,14 @@ const DEFAULT_ROUTINES: IRoutine[] = [
 
 export const useRoutineStore = defineStore('routines', () => {
   const routines = ref<IRoutine[]>(_loadFromStorage());
+  const profilesStore = useProfilesStore();
+
+  /** Routines filtered by the active profile (or all if no profile active). */
+  const visibleRoutines = computed(() => {
+    const active = profilesStore.activeProfile;
+    if (!active) return routines.value;
+    return routines.value.filter((r) => active.routineIds.includes(r.id));
+  });
 
   function _loadFromStorage(): IRoutine[] {
     try {
@@ -187,17 +196,17 @@ export const useRoutineStore = defineStore('routines', () => {
     }
   }
 
-  // Returns routines scheduled for the given date (defaults to today)
+  // Returns routines scheduled for the given date (defaults to today), respecting active profile
   function routinesForToday(dateStr?: string): IRoutine[] {
     const dow = dateStr
       ? DAY_KEYS[new Date(dateStr + 'T12:00:00').getDay()]
       : todayDow();
-    return routines.value.filter(
+    return visibleRoutines.value.filter(
       (r) => r.days.length === 0 || r.days.includes(dow),
     );
   }
 
-  // Grouped by time block, only for today
+  // Grouped by time block, only for today, respecting active profile
   const routinesByBlock = computed(() => {
     const today = routinesForToday();
     return {
@@ -327,6 +336,7 @@ export const useRoutineStore = defineStore('routines', () => {
 
   return {
     routines,
+    visibleRoutines,
     routinesByBlock,
     routinesForToday,
     totalCompleted,

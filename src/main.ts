@@ -6,6 +6,7 @@ import { i18n } from './plugins/i18n';
 import './assets/css/global.css';
 import { useRoutineStore } from './stores/routines.store';
 import { useOnboardingStore } from './stores/onboarding.store';
+import { useProfilesStore } from './stores/profiles.store';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -14,8 +15,12 @@ app.use(router);
 app.use(i18n);
 
 // Hydrate stores from SQLite (no-op in browser — uses localStorage)
+// profiles must init before routines (routines store reads activeProfile)
+const profilesStore = useProfilesStore();
 const routineStore = useRoutineStore();
 const onboardingStore = useOnboardingStore();
-Promise.all([routineStore.init(), onboardingStore.init()]).finally(() => {
+Promise.all([profilesStore.init(), onboardingStore.init()]).then(() =>
+  routineStore.init(),
+).finally(() => {
   app.mount('#app');
 });

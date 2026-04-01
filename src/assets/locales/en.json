@@ -348,6 +348,19 @@
     "notFound": "Routine not found.",
     "backToToday": "Back to Today"
   },
+  "profiles": {
+    "all": "All",
+    "new": "New profile",
+    "modal": {
+      "title": "New Profile",
+      "editTitle": "Edit Profile",
+      "fields": {
+        "namePlaceholder": "e.g. Work Week",
+        "routines": "Included routines"
+      },
+      "delete": "Delete profile"
+    }
+  },
   "aiSuggest": {
     "button": "AI Suggest",
     "title": "AI Assistant",
